@@ -1,0 +1,101 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>iconcerto</groupId>
+	<artifactId>iconcerto</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>ear</packaging>
+
+	<name>iconcerto EAR</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<parent>
+		<groupId>iconcerto</groupId>
+		<artifactId>iconcerto-main</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>iconcerto.bastion</groupId>
+			<artifactId>bastion</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>iconcerto.wiki</groupId>
+			<artifactId>wiki</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>iconcerto.workflow</groupId>
+			<artifactId>workflow</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>iconcerto.conductor</groupId>
+			<artifactId>conductor</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+			<type>war</type>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>2.4.2</version>
+				<configuration>			
+					<displayName>iconcerto</displayName>
+					<description>iconcerto - synergy software</description>		
+					<version>6</version>					
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<generateApplicationXml>true</generateApplicationXml>					
+					<modules>
+						<webModule>
+							<groupId>iconcerto.bastion</groupId>
+							<artifactId>bastion</artifactId>
+							<contextRoot>bastion</contextRoot>
+						</webModule>
+						<webModule>
+							<groupId>iconcerto.wiki</groupId>
+							<artifactId>wiki</artifactId>
+							<contextRoot>wiki</contextRoot>
+						</webModule>
+						<webModule>
+							<groupId>iconcerto.workflow</groupId>
+							<artifactId>workflow</artifactId>
+							<contextRoot>workflow</contextRoot>
+						</webModule>
+						<webModule>
+							<groupId>iconcerto.conductor</groupId>
+							<artifactId>conductor</artifactId>
+							<contextRoot>conductor</contextRoot>
+						</webModule>
+					</modules>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
