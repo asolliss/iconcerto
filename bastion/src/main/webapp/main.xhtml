@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+      
+<h:head>
+  <title><ui:insert name="title">Bastion</ui:insert></title>
+  <h:outputStylesheet library="css" name="bastion.css"/>
+</h:head>
+
+<h:body>
+<table class="top-bar">
+  <tr>
+  	<td class="top-bar-space"></td>
+    <td class="top-bar-logo"><h:graphicImage value="#{resource['images:bastion_small_logo.png']}"/></td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+<div id="content" class="content">
+  <ui:insert name="content">
+    	content
+  </ui:insert>
+</div>
+
+<table class="bottom-bar">
+  <tr>
+  	<td>&nbsp;</td>
+  	<td class="bottom-bar-edge"></td>
+  	<td class="bottom-bar-space">
+  	<h:outputText value="#{bastionMessages.applicationFullName}" />
+  	</td>    
+  </tr>
+</table>
+
+</h:body>
+</html>

@@ -48,6 +48,13 @@
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
+		<dependency>
+			<groupId>iconcerto.bastion</groupId>
+			<artifactId>bastion-ejb</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>			
+			<type>ejb</type>			
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -70,7 +77,7 @@
 					<description>iconcerto - synergy software</description>		
 					<version>6</version>					
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
-					<generateApplicationXml>true</generateApplicationXml>					
+					<generateApplicationXml>true</generateApplicationXml>		
 					<modules>
 						<webModule>
 							<groupId>iconcerto.bastion</groupId>
@@ -92,6 +99,10 @@
 							<artifactId>conductor</artifactId>
 							<contextRoot>conductor</contextRoot>
 						</webModule>
+						<ejbModule>
+							<groupId>iconcerto.bastion</groupId>
+							<artifactId>bastion-ejb</artifactId>
+						</ejbModule>
 					</modules>
 				</configuration>
 			</plugin>

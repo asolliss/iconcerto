@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd" version="6">
+  <description>iconcerto - synergy software</description>
+  <display-name>iconcerto</display-name>
+  <module>
+    <web>
+      <web-uri>bastion-0.0.1-SNAPSHOT.war</web-uri>
+      <context-root>bastion</context-root>
+    </web>
+  </module>
+  <module>
+    <web>
+      <web-uri>wiki-0.0.1-SNAPSHOT.war</web-uri>
+      <context-root>wiki</context-root>
+    </web>
+  </module>
+  <module>
+    <web>
+      <web-uri>workflow-0.0.1-SNAPSHOT.war</web-uri>
+      <context-root>workflow</context-root>
+    </web>
+  </module>
+  <module>
+    <web>
+      <web-uri>conductor-0.0.1-SNAPSHOT.war</web-uri>
+      <context-root>conductor</context-root>
+    </web>
+  </module>
+  <module>
+    <ejb>bastion-ejb-0.0.1-SNAPSHOT.jar</ejb>
+  </module>
+</application>

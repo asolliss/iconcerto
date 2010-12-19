@@ -1,0 +1,7 @@
+applicationFullName=Bastion это часть iConcerto
+
+username=Пользователь: 
+password=Пароль: 
+logIn=Войти
+logOut=Выйти
+incorrectUsernameAndPassword=Некорректные логин и пароль

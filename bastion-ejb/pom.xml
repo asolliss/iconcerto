@@ -2,18 +2,18 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>iconcerto.conductor</groupId>
-	<artifactId>conductor</artifactId>
+	<groupId>iconcerto.bastion</groupId>
+	<artifactId>bastion-ejb</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>ejb</packaging>
 
-	<name>conductor Web App</name>
+	<name>bastion-ejb EJB</name>
 
 	<properties>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
+	
 	<parent>
 		<groupId>iconcerto</groupId>
 		<artifactId>iconcerto-main</artifactId>
@@ -21,19 +21,12 @@
 	</parent>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>javax</groupId>
-			<artifactId>javaee-web-api</artifactId>
+			<artifactId>javaee-api</artifactId>
 			<version>6.0</version>
 			<scope>provided</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>iconcerto.bastion</groupId>
-			<artifactId>bastion-ejb</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>compile</scope>			
-			<type>ejb-client</type>			
 		</dependency>
 
 		<dependency>
@@ -42,6 +35,7 @@
 			<version>4.8.1</version>
 			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -60,10 +54,19 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.1</version>
+				<artifactId>maven-ejb-plugin</artifactId>
+				<version>2.3</version>
 				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<ejbVersion>3.1</ejbVersion>
+					<generateClient>true</generateClient>
+					<clientIncludes>
+						<clientInclude>iconcerto/bastion/beans/*Remote.class</clientInclude>
+						<clientInclude>iconcerto/bastion/authorization/**</clientInclude>
+						<clientInclude>iconcerto/bastion/domain/**</clientInclude>
+					</clientIncludes>
+					<clientExcludes>
+						<clientExclude>iconcerto/bastion/entities/**</clientExclude>	
+					</clientExcludes>					
 				</configuration>
 			</plugin>
 			<plugin>
@@ -95,3 +98,4 @@
 	</build>
 
 </project>
+
