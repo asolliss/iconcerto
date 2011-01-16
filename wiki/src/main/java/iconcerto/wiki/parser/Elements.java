@@ -24,4 +24,6 @@ public interface Elements {
 	
 	void setLastCharIndex(int index);
 	
+	int getLevel();
+	
 }

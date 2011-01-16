@@ -63,33 +63,33 @@ public class CharAccessorTest {
 	}
 	
 	@Test
-	public void testPreviousCharRepetitionMissInTheEndOfString() {
+	public void testSkipPreviousCharRepetitionInTheEndOfString() {
 		testString = "abc aaa";
 		charAccessor.init(testString);
 		charAccessor.setIndex(5);
 		
-		assertEquals(2, charAccessor.missPreviousCharRepetition());
+		assertEquals(2, charAccessor.skipPreviousCharRepetition());
 		assertEquals(7, charAccessor.getIndex());
 	}
 	
 	@Test
-	public void testPreviousCharRepetitionMissInTheMiddleOfString() {
+	public void testSkipPreviousCharRepetitionInTheMiddleOfString() {
 		testString = "abc aaa def";
 		charAccessor.init(testString);
 		charAccessor.setIndex(5);
 		
-		assertEquals(2, charAccessor.missPreviousCharRepetition());
+		assertEquals(2, charAccessor.skipPreviousCharRepetition());
 		assertEquals(7, charAccessor.getIndex());
 	}
 	
 	@Test
-	public void testPreviousCharRepetitionMissInTheEndOfLine() {
+	public void testSkipPreviousCharRepetitionInTheEndOfLine() {
 		testString = "abc aaa\n" +
 				"yeah!";
 		charAccessor.init(testString);
 		charAccessor.setIndex(5);
 		
-		assertEquals(2, charAccessor.missPreviousCharRepetition());
+		assertEquals(2, charAccessor.skipPreviousCharRepetition());
 		assertEquals(7, charAccessor.getIndex());
 	}
 	
@@ -169,6 +169,20 @@ public class CharAccessorTest {
 		assertTrue(charAccessor.isFirstCharOfLine());
 		charAccessor.getChar();
 		assertFalse(charAccessor.isFirstCharOfLine());
+	}
+	
+	@Test
+	public void testSkipLine() {
+		charAccessor.skipLine();
+		assertEquals(16, charAccessor.getIndex());
+	}
+	
+	@Test
+	public void testSkipLineAtEndOfCode() {
+		charAccessor.setIndex(16);
+		charAccessor.skipLine();
+		
+		assertEquals(23, charAccessor.getIndex());
 	}
 	
 }

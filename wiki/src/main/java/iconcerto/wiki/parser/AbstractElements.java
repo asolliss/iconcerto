@@ -11,6 +11,7 @@ public abstract class AbstractElements implements Elements {
 	private List<Elements> unmodifiableChildren = Collections.unmodifiableList(children);
 	private int firstCharIndex;
 	private int lastCharIndex;
+	private int level;
 	
 	@Override
 	public Elements getParent() {
@@ -27,7 +28,8 @@ public abstract class AbstractElements implements Elements {
 			this.parent.removeChild(this);
 		}
 		
-		this.parent = parent;				
+		this.parent = parent;
+		evaluateLevel();
 	}
 
 	@Override
@@ -63,6 +65,20 @@ public abstract class AbstractElements implements Elements {
 	@Override
 	public void setLastCharIndex(int lastCharIndex) {
 		this.lastCharIndex = lastCharIndex;
+	}
+
+	@Override
+	public int getLevel() {
+		return level;
+	}
+	
+	private void evaluateLevel() {
+		if (getParent() == null) {
+			level = 0;
+		}
+		else {
+			level = getParent().getLevel() + 1; 
+		}
 	}
 
 }

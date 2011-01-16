@@ -14,7 +14,7 @@ public class HeaderParser extends AbstractElementParsers {
 			char c = ca.getChar();
 			if (c == '=') {
 				int index = ca.getIndex()-1;
-				int typeNumber = ca.missPreviousCharRepetition() + 1;
+				int typeNumber = ca.skipPreviousCharRepetition() + 1;
 				header = new Headers();
 				header.setParent(getCurrentParent());
 				header.setType(Headers.intToType(typeNumber));
@@ -32,6 +32,7 @@ public class HeaderParser extends AbstractElementParsers {
 							)
 						);
 				header.setLastCharIndex(ca.getIndex()-1);
+				ca.skipLine();
 			}
 			else {
 				ca.returnChar();

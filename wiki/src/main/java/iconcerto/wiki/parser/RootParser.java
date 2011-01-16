@@ -7,14 +7,16 @@ public class RootParser extends AbstractElementParsers {
 
 	private List<ElementParsers> elementParsers =
 		new ArrayList<ElementParsers>();
+	private ParseBundle parseBundle;
 	
 	public RootParser() {
 		elementParsers.add(new HeaderParser());
-		elementParsers.add(new LinkParser());
+		elementParsers.add(new TextParser());
 	}
 	
 	@Override
 	public Elements parse(ParseBundle parseBundle) {
+		this.parseBundle = parseBundle;
 		Root root = new Root();
 		for (ElementParsers elementParser: elementParsers) {
 			elementParser.setCurrentParent(root);
@@ -26,7 +28,7 @@ public class RootParser extends AbstractElementParsers {
 			for (ElementParsers elementParser: elementParsers) {
 				element = elementParser.parse(parseBundle);
 				if (element != null) {
-					parseBundle.visit(element);
+					recursiveVisit(element);
 					completed = true;
 					break;
 				}
@@ -36,6 +38,13 @@ public class RootParser extends AbstractElementParsers {
 			}
 		}
 		return root;
+	}
+	
+	private void recursiveVisit(Elements element) {
+		parseBundle.visit(element);
+		for (Elements child: element.getChildren()) {
+			recursiveVisit(child);
+		}
 	}
 
 }

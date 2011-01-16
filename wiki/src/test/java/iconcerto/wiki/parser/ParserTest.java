@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.*;
+import org.mockito.InOrder;
 
 public class ParserTest {
 
@@ -15,7 +16,25 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testParseHeaderAdnLink() {
+	public void testBeginningAndEnding() {
+		String code = " ";
+		
+		ParserVisitors mockedParserVisitor = mock(ParserVisitors.class);
+		
+		parser.addVisitor(mockedParserVisitor);
+		
+		parser.parse(code);
+		
+		InOrder inOrder = inOrder(mockedParserVisitor);
+		
+		inOrder.verify(mockedParserVisitor).begin();
+		inOrder.verify(mockedParserVisitor).visit(any(Texts.class));
+		inOrder.verify(mockedParserVisitor).end();
+		verifyNoMoreInteractions(mockedParserVisitor);
+	}
+	
+	@Test
+	public void testParseHeaderAndLink() {
 		String code = "= Header1 =	\n		[[http://www.test.com/|test]]";
 		
 		ParserVisitors mockedParserVisitor = mock(ParserVisitors.class);
@@ -25,7 +44,7 @@ public class ParserTest {
 		parser.parse(code);
 		
 		verify(mockedParserVisitor).visit(any(Headers.class));
-		verify(mockedParserVisitor).visit(any(Links.class));
+		verify(mockedParserVisitor).visit(any(Texts.class));
 	}
 	
 }

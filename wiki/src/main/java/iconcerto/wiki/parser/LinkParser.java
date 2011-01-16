@@ -40,7 +40,7 @@ public class LinkParser extends AbstractElementParsers {
 				}
 				else {
 					link.setTitle(link.getUrl());
-				}			
+				}
 			}
 			else {
 				ca.returnChar();

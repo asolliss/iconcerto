@@ -20,12 +20,13 @@ public abstract class AbstractElementParsers implements ElementParsers {
 	public void setCurrentParent(Elements parent) {
 		this.currentParent = parent;
 	}
-
+	
 	public void addElementParser(ElementParsers elementParser) {
 		elementParsers.add(elementParser);
 	}
-	
+
 	public List<ElementParsers> getElementsParsers() {
 		return unmodifiableElementParsers;
 	}
+	
 }

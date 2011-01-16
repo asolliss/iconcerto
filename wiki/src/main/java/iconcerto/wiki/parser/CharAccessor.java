@@ -74,10 +74,10 @@ public class CharAccessor {
 	}
 
 	/**
-	 * Miss a repetition of previous char
+	 * Skip a repetition of previous char
 	 * @return factor of repetition
 	 */
-	public int missPreviousCharRepetition() {
+	public int skipPreviousCharRepetition() {
 		char c = characters[index-1];
 		int i = 0;
 		while (hasNext() && (getChar() == c)) {			
@@ -87,6 +87,14 @@ public class CharAccessor {
 			returnChar();
 		}
 		return i;
+	}
+	
+	/**
+	 * Set the index on the first char of the next line.
+	 * If this line is last then set the index on the end of the code 
+	 */
+	public void skipLine() {
+		while (hasNext() && (getChar() != '\n'));
 	}
 	
 	/**
