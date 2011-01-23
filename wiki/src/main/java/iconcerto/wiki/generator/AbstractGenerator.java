@@ -1,28 +1,16 @@
-package iconcerto.wiki.generators;
+package iconcerto.wiki.generator;
 
 import java.util.Properties;
 
-import iconcerto.wiki.parser.ParserVisitors;
-
-public abstract class AbstractGenerator implements ParserVisitors, Generators {
+public abstract class AbstractGenerator extends Generator {
 
 	private StringBuilder document;
-	private Properties parameters;
+	private Properties parameters; 
 	
 	public AbstractGenerator() {
 		document = new StringBuilder();
 		parameters = new Properties();
-	}
-	
-	public AbstractGenerator append(char c) {
-		document.append(c);
-		return this;
-	}
-
-	public AbstractGenerator append(String string) {
-		document.append(string);
-		return this;
-	}
+	}	
 
 	@Override
 	public String getDocument() {
@@ -42,6 +30,16 @@ public abstract class AbstractGenerator implements ParserVisitors, Generators {
 	@Override
 	public void setParameter(String key, String value) {
 		parameters.setProperty(key, value);
+	}
+	
+	protected AbstractGenerator append(char c) {
+		document.append(c);
+		return this;
+	}
+
+	protected AbstractGenerator append(String string) {
+		document.append(string);
+		return this;
 	}
 	
 }

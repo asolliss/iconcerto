@@ -21,18 +21,17 @@ public class LinkParserTest {
 		ParseBundle mockedParseBundle = mock(ParseBundle.class); 
 		CharAccessor charAccessor = new CharAccessor(code);
 		when(mockedParseBundle.getCharAccessor()).thenReturn(charAccessor);
-		linkParser.setCurrentParent(new Root());
 		
-		Elements element = linkParser.parse(mockedParseBundle);
+		linkParser.setCurrentParent(mock(Element.class));
+		Element element = linkParser.parse(mockedParseBundle);
 		
 		assertNotNull(element);
-		assertEquals(0, element.getFirstCharIndex());
-		assertEquals(code.length()-1, element.getLastCharIndex());
 		assertNotNull(element.getParent());
-		assertEquals(Root.class, element.getParent().getClass());
-		assertEquals(Links.class, element.getClass());		
-		Links link = (Links) element;
-		assertEquals(Links.Types.INTERNAL, link.getType());
+		assertEquals(0, element.getFirstCharIndex());
+		assertEquals(code.length()-1, element.getLastCharIndex());		
+		assertEquals(Link.class, element.getClass());		
+		Link link = (Link) element;
+		assertEquals(Link.Type.INTERNAL, link.getType());
 		assertEquals("Link", link.getUrl());
 		assertEquals("Link", link.getTitle());		
 	}
@@ -43,18 +42,17 @@ public class LinkParserTest {
 		ParseBundle mockedParseBundle = mock(ParseBundle.class); 
 		CharAccessor charAccessor = new CharAccessor(code);
 		when(mockedParseBundle.getCharAccessor()).thenReturn(charAccessor);
-		linkParser.setCurrentParent(new Root());
 		
-		Elements element = linkParser.parse(mockedParseBundle);
+		linkParser.setCurrentParent(mock(Element.class));
+		Element element = linkParser.parse(mockedParseBundle);
 		
 		assertNotNull(element);
+		assertNotNull(element.getParent());
 		assertEquals(0, element.getFirstCharIndex());
 		assertEquals(code.length()-1, element.getLastCharIndex());
-		assertNotNull(element.getParent());
-		assertEquals(Root.class, element.getParent().getClass());
-		assertEquals(Links.class, element.getClass());
-		Links link = (Links) element;
-		assertEquals(Links.Types.INTERNAL, link.getType());
+		assertEquals(Link.class, element.getClass());
+		Link link = (Link) element;
+		assertEquals(Link.Type.INTERNAL, link.getType());
 		assertEquals("Link", link.getUrl());
 		assertEquals("Titled link", link.getTitle());
 	}
@@ -65,18 +63,17 @@ public class LinkParserTest {
 		ParseBundle mockedParseBundle = mock(ParseBundle.class); 
 		CharAccessor charAccessor = new CharAccessor(code);
 		when(mockedParseBundle.getCharAccessor()).thenReturn(charAccessor);
-		linkParser.setCurrentParent(new Root());
 		
-		Elements element = linkParser.parse(mockedParseBundle);
+		linkParser.setCurrentParent(mock(Element.class));
+		Element element = linkParser.parse(mockedParseBundle);
 		
 		assertNotNull(element);
+		assertNotNull(element.getParent());
 		assertEquals(0, element.getFirstCharIndex());
 		assertEquals(code.length()-1, element.getLastCharIndex());
-		assertNotNull(element.getParent());
-		assertEquals(Root.class, element.getParent().getClass());
-		assertEquals(Links.class, element.getClass());		
-		Links link = (Links) element;
-		assertEquals(Links.Types.EXTERNAL, link.getType());
+		assertEquals(Link.class, element.getClass());		
+		Link link = (Link) element;
+		assertEquals(Link.Type.EXTERNAL, link.getType());
 		assertEquals("http://www.test.com/", link.getUrl());
 		assertEquals("http://www.test.com/", link.getTitle());		
 	}
@@ -87,18 +84,17 @@ public class LinkParserTest {
 		ParseBundle mockedParseBundle = mock(ParseBundle.class); 
 		CharAccessor charAccessor = new CharAccessor(code);
 		when(mockedParseBundle.getCharAccessor()).thenReturn(charAccessor);
-		linkParser.setCurrentParent(new Root());
 		
-		Elements element = linkParser.parse(mockedParseBundle);
+		linkParser.setCurrentParent(mock(Element.class));
+		Element element = linkParser.parse(mockedParseBundle);
 		
 		assertNotNull(element);
+		assertNotNull(element.getParent());
 		assertEquals(0, element.getFirstCharIndex());
 		assertEquals(code.length()-1, element.getLastCharIndex());
-		assertNotNull(element.getParent());
-		assertEquals(Root.class, element.getParent().getClass());
-		assertEquals(Links.class, element.getClass());
-		Links link = (Links) element;
-		assertEquals(Links.Types.EXTERNAL, link.getType());
+		assertEquals(Link.class, element.getClass());
+		Link link = (Link) element;
+		assertEquals(Link.Type.EXTERNAL, link.getType());
 		assertEquals("http://www.test.com/", link.getUrl());
 		assertEquals("test.com", link.getTitle());
 	}

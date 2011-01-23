@@ -2,10 +2,10 @@ package iconcerto.wiki.parser;
 
 public interface ElementParsers {
 
-	Elements parse(ParseBundle parseBundle);
+	Element parse(ParseBundle parseBundle);
 	
-	Elements getCurrentParent();
+	Element getCurrentParent();
 	
-	void setCurrentParent(Elements parent);
+	void setCurrentParent(Element parent);
 	
 }

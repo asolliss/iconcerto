@@ -4,6 +4,6 @@ public interface ParseBundle {
 
 	CharAccessor getCharAccessor();
 	
-	void visit(Elements element);
+	void visit(Element element);
 	
 }

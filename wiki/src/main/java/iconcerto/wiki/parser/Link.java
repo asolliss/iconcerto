@@ -1,14 +1,14 @@
 package iconcerto.wiki.parser;
 
-public class Links extends AbstractElements {
+public class Link extends AbstractElement {
 	
-	public static enum Types {INTERNAL, EXTERNAL};	
+	public static enum Type {INTERNAL, EXTERNAL};	
 
 	private String url;
-	private Types type;
+	private Type type;
 	private String title;
 	
-	public Links() {
+	public Link() {
 		super();
 	}
 
@@ -20,11 +20,11 @@ public class Links extends AbstractElements {
 		this.url = url;
 	}
 
-	public Types getType() {
+	public Type getType() {
 		return type;
 	}
 
-	public void setType(Types type) {
+	public void setType(Type type) {
 		this.type = type;
 	}
 
@@ -37,7 +37,7 @@ public class Links extends AbstractElements {
 	}
 
 	@Override
-	public void accept(ParserVisitors visitor) {
+	public void accept(ParserVisitor visitor) {
 		visitor.visit(this);
 	}
 

@@ -3,7 +3,7 @@ package iconcerto.wiki.parser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RootParser extends AbstractElementParsers {
+public class RootParser extends AbstractElementParser {
 
 	private List<ElementParsers> elementParsers =
 		new ArrayList<ElementParsers>();
@@ -11,19 +11,15 @@ public class RootParser extends AbstractElementParsers {
 	
 	public RootParser() {
 		elementParsers.add(new HeaderParser());
-		elementParsers.add(new TextParser());
+		elementParsers.add(new ParagraphParser());
 	}
 	
 	@Override
-	public Elements parse(ParseBundle parseBundle) {
-		this.parseBundle = parseBundle;
-		Root root = new Root();
-		for (ElementParsers elementParser: elementParsers) {
-			elementParser.setCurrentParent(root);
-		}
+	public Element parse(ParseBundle parseBundle) {
+		this.parseBundle = parseBundle;		
 		
 		while (parseBundle.getCharAccessor().hasNext()) {
-			Elements element = null;
+			Element element = null;
 			boolean completed = false;
 			for (ElementParsers elementParser: elementParsers) {
 				element = elementParser.parse(parseBundle);
@@ -37,12 +33,12 @@ public class RootParser extends AbstractElementParsers {
 				parseBundle.getCharAccessor().getChar();
 			}
 		}
-		return root;
+		return null;
 	}
 	
-	private void recursiveVisit(Elements element) {
+	private void recursiveVisit(Element element) {
 		parseBundle.visit(element);
-		for (Elements child: element.getChildren()) {
+		for (Element child: element.getChildren()) {
 			recursiveVisit(child);
 		}
 	}

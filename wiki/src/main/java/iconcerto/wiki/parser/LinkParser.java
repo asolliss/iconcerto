@@ -2,11 +2,11 @@ package iconcerto.wiki.parser;
 
 import java.util.Arrays;
 
-public class LinkParser extends AbstractElementParsers {
+public class LinkParser extends AbstractElementParser {
 
 	@Override
-	public Elements parse(ParseBundle parseBundle) {
-		Links link = null;
+	public Element parse(ParseBundle parseBundle) {
+		Link link = null;
 		CharAccessor ca = parseBundle.getCharAccessor();
 		int caIndex = ca.getIndex();
 		try {
@@ -22,17 +22,17 @@ public class LinkParser extends AbstractElementParsers {
 					if (c == '|') break;		
 					i++; 
 				}
-				link = new Links();
+				link = new Link();
 				link.setParent(getCurrentParent());
 				link.setFirstCharIndex(firstCharIndex);
 				link.setLastCharIndex(lastCharIndex);			
 				link.setUrl(new String(Arrays.copyOf(meta, i)));
 				
 				if (link.getUrl().contains("://")) {
-					link.setType(Links.Types.EXTERNAL);
+					link.setType(Link.Type.EXTERNAL);
 				}
 				else {
-					link.setType(Links.Types.INTERNAL);
+					link.setType(Link.Type.INTERNAL);
 				}
 				
 				if ((meta.length) > (i+1)) {

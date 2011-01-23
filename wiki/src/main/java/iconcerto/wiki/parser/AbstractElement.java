@@ -4,22 +4,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractElements implements Elements {
+public abstract class AbstractElement implements Element {
 
-	private Elements parent;
-	private List<Elements> children = new ArrayList<Elements>();
-	private List<Elements> unmodifiableChildren = Collections.unmodifiableList(children);
+	private Element parent;
+	private List<Element> children = new ArrayList<Element>();
+	private List<Element> unmodifiableChildren = Collections.unmodifiableList(children);
 	private int firstCharIndex;
 	private int lastCharIndex;
 	private int level;
+	private int relativePosition;
 	
 	@Override
-	public Elements getParent() {
+	public Element getParent() {
 		return parent;
 	}
 
 	@Override
-	public void setParent(Elements parent) {
+	public void setParent(Element parent) {
 		if (parent != null) {			
 			parent.addChild(this);
 		}
@@ -33,17 +34,17 @@ public abstract class AbstractElements implements Elements {
 	}
 
 	@Override
-	public List<Elements> getChildren() {
+	public List<Element> getChildren() {
 		return unmodifiableChildren;
 	}
 
 	@Override
-	public void addChild(Elements child) {
+	public void addChild(Element child) {
 		children.add(child);
 	}
 
 	@Override
-	public void removeChild(Elements child) {
+	public void removeChild(Element child) {
 		children.remove(child);
 	}
 
@@ -72,6 +73,16 @@ public abstract class AbstractElements implements Elements {
 		return level;
 	}
 	
+	@Override
+	public int getRelativePosition() {
+		return relativePosition;
+	}
+
+	@Override
+	public void setRelativePosition(int relativePosition) {
+		this.relativePosition = relativePosition;
+	}
+
 	private void evaluateLevel() {
 		if (getParent() == null) {
 			level = 0;

@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractElementParsers implements ElementParsers {
+public abstract class AbstractElementParser implements ElementParsers {
 
-	private Elements currentParent;
+	private Element currentParent;
 	private List<ElementParsers> elementParsers = new ArrayList<ElementParsers>();
 	private List<ElementParsers> unmodifiableElementParsers =
 		Collections.unmodifiableList(elementParsers);
 	
 	@Override
-	public Elements getCurrentParent() {
+	public Element getCurrentParent() {
 		return currentParent;
 	}
 
 	@Override
-	public void setCurrentParent(Elements parent) {
+	public void setCurrentParent(Element parent) {
 		this.currentParent = parent;
 	}
 	

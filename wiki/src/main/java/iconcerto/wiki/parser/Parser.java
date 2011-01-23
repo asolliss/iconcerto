@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Parser implements ParseBundle {
 
-	private List<ParserVisitors> visitors = new ArrayList<ParserVisitors>();
+	private List<ParserVisitor> visitors = new ArrayList<ParserVisitor>();
 	private CharAccessor charAccessor;
 	private RootParser rootParser = new RootParser();
 		
@@ -13,11 +13,11 @@ public class Parser implements ParseBundle {
 
 	}
 
-	public void addVisitor(ParserVisitors visitor) {
+	public void addVisitor(ParserVisitor visitor) {
 		visitors.add(visitor);
 	}
 	
-	public void removeVisitor(ParserVisitors visitor) {
+	public void removeVisitor(ParserVisitor visitor) {
 		visitors.remove(visitor);
 	}
 	
@@ -32,27 +32,14 @@ public class Parser implements ParseBundle {
 	}
 
 	private void parse() {
-		begin();
 		rootParser.parse(this);
-		end();
 	}
 
 	@Override
-	public void visit(Elements element) {
-		for (ParserVisitors visitor: visitors) {
+	public void visit(Element element) {
+		for (ParserVisitor visitor: visitors) {
+			if (visitor.isOnlyRoot() && element.getParent() != null) continue;
 			element.accept(visitor);
-		}
-	}
-	
-	public void begin() {
-		for (ParserVisitors visitor: visitors) {
-			visitor.begin();
-		}
-	}
-	
-	public void end() {
-		for (ParserVisitors visitor: visitors) {
-			visitor.end();
 		}
 	}
 	

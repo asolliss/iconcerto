@@ -1,18 +1,18 @@
 package iconcerto.wiki.parser;
 
-public class TextParser extends AbstractElementParsers {
+public class ParagraphParser extends AbstractElementParser {
 	
-	public TextParser() {
+	public ParagraphParser() {
 		addElementParser(new LinkParser());
 	}
 
 	@Override
-	public Elements parse(ParseBundle parseBundle) {
+	public Element parse(ParseBundle parseBundle) {
 		CharAccessor ca = parseBundle.getCharAccessor();
 		
-		Texts text = new Texts();
-		text.setParent(getCurrentParent());
-		text.setFirstCharIndex(ca.getIndex());
+		Paragraph paragraph = new Paragraph();
+		paragraph.setParent(getCurrentParent());
+		paragraph.setFirstCharIndex(ca.getIndex());
 		StringBuilder sb = new StringBuilder();
 
 		int positionOfElement = 0;
@@ -24,7 +24,7 @@ public class TextParser extends AbstractElementParsers {
 				break;
 			}			
 			
-			Elements element = null;
+			Element element = null;
 			for (ElementParsers elementParser: getElementsParsers()) {
 				element = elementParser.parse(parseBundle);
 				if (element != null) {					
@@ -34,8 +34,8 @@ public class TextParser extends AbstractElementParsers {
 			
 			if (element != null) {
 				//add an element-child
-				text.addChild(element);
-				text.put(element, positionOfElement);
+				paragraph.addChild(element);
+				element.setRelativePosition(positionOfElement);
 				//add a previous text snippet 
 				sb.append(ca.getRange(snippetBeginning, element.getFirstCharIndex()));
 				snippetBeginning = ca.getIndex();
@@ -48,10 +48,10 @@ public class TextParser extends AbstractElementParsers {
 		//add a last text snippet
 		sb.append(ca.getRange(snippetBeginning, ca.getIndex()));
 		
-		text.setLastCharIndex(ca.getIndex()-1);
-		text.setText(sb.toString());
+		paragraph.setLastCharIndex(ca.getIndex()-1);
+		paragraph.setText(sb.toString());
 		
-		return text;
+		return paragraph;
 	}
 
 }

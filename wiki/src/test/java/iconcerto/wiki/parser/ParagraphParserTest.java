@@ -5,13 +5,13 @@ import static org.mockito.Mockito.*;
 
 import org.junit.*;
 
-public class TextParserTest {
+public class ParagraphParserTest {
 
-	private TextParser textParser;
+	private ParagraphParser paragraphParser;
 	
 	@Before
 	public void setUp() {
-		textParser = new TextParser();
+		paragraphParser = new ParagraphParser();
 	}
 	
 	@Test
@@ -20,18 +20,17 @@ public class TextParserTest {
 		ParseBundle mockedParseBundle = mock(ParseBundle.class); 
 		CharAccessor charAccessor = new CharAccessor(code);
 		when(mockedParseBundle.getCharAccessor()).thenReturn(charAccessor);
-		textParser.setCurrentParent(new Root());
 		
-		Elements element = textParser.parse(mockedParseBundle);
+		paragraphParser.setCurrentParent(mock(Element.class));
+		Element element = paragraphParser.parse(mockedParseBundle);
 		
 		assertNotNull(element);
 		assertEquals(0, element.getFirstCharIndex());
 		assertEquals(code.length()-1, element.getLastCharIndex());
 		assertNotNull(element.getParent());
-		assertEquals(Root.class, element.getParent().getClass());
-		assertEquals(Texts.class, element.getClass());		
-		Texts text = (Texts) element;
-		assertEquals(code, text.getText());	
+		assertEquals(Paragraph.class, element.getClass());		
+		Paragraph paragraph = (Paragraph) element;
+		assertEquals(code, paragraph.getText());	
 	}
 	
 	@Test
@@ -41,18 +40,17 @@ public class TextParserTest {
 		ParseBundle mockedParseBundle = mock(ParseBundle.class); 
 		CharAccessor charAccessor = new CharAccessor(code);
 		when(mockedParseBundle.getCharAccessor()).thenReturn(charAccessor);
-		textParser.setCurrentParent(new Root());
 		
-		Elements element = textParser.parse(mockedParseBundle);
+		paragraphParser.setCurrentParent(mock(Element.class));
+		Element element = paragraphParser.parse(mockedParseBundle);
 		
 		assertNotNull(element);
 		assertEquals(0, element.getFirstCharIndex());
 		assertEquals(11, element.getLastCharIndex());
 		assertNotNull(element.getParent());
-		assertEquals(Root.class, element.getParent().getClass());
-		assertEquals(Texts.class, element.getClass());		
-		Texts text = (Texts) element;
-		assertEquals(" Simple text", text.getText());	
+		assertEquals(Paragraph.class, element.getClass());		
+		Paragraph paragraph = (Paragraph) element;
+		assertEquals(" Simple text", paragraph.getText());	
 	}
 	
 	@Test
@@ -61,21 +59,20 @@ public class TextParserTest {
 		ParseBundle mockedParseBundle = mock(ParseBundle.class); 
 		CharAccessor charAccessor = new CharAccessor(code);
 		when(mockedParseBundle.getCharAccessor()).thenReturn(charAccessor);
-		textParser.setCurrentParent(new Root());
 		
-		Elements element = textParser.parse(mockedParseBundle);
+		paragraphParser.setCurrentParent(mock(Element.class));
+		Element element = paragraphParser.parse(mockedParseBundle);
 		
 		assertNotNull(element);
 		assertEquals(0, element.getFirstCharIndex());
 		assertEquals(code.length()-1, element.getLastCharIndex());
 		assertNotNull(element.getParent());
-		assertEquals(Root.class, element.getParent().getClass());
-		assertEquals(Texts.class, element.getClass());		
-		Texts text = (Texts) element;
-		assertEquals(" Simple text .", text.getText());
-		assertEquals(1, text.getChildren().size());
-		assertEquals(Links.class, text.getChildren().get(0).getClass());
-		assertEquals(13, text.getPosition(text.getChildren().get(0)));
+		assertEquals(Paragraph.class, element.getClass());		
+		Paragraph paragraph = (Paragraph) element;
+		assertEquals(" Simple text .", paragraph.getText());
+		assertEquals(1, paragraph.getChildren().size());
+		assertEquals(Link.class, paragraph.getChildren().get(0).getClass());
+		assertEquals(13, paragraph.getChildren().get(0).getRelativePosition());
 	}
 	
 	@Test
@@ -84,22 +81,21 @@ public class TextParserTest {
 		ParseBundle mockedParseBundle = mock(ParseBundle.class); 
 		CharAccessor charAccessor = new CharAccessor(code);
 		when(mockedParseBundle.getCharAccessor()).thenReturn(charAccessor);
-		textParser.setCurrentParent(new Root());
 		
-		Elements element = textParser.parse(mockedParseBundle);
+		paragraphParser.setCurrentParent(mock(Element.class));
+		Element element = paragraphParser.parse(mockedParseBundle);
 		
 		assertNotNull(element);
 		assertEquals(0, element.getFirstCharIndex());
 		assertEquals(code.length()-1, element.getLastCharIndex());
 		assertNotNull(element.getParent());
-		assertEquals(Root.class, element.getParent().getClass());
-		assertEquals(Texts.class, element.getClass());		
-		Texts text = (Texts) element;
-		assertEquals(" Simple text . Simple text .", text.getText());
-		assertEquals(2, text.getChildren().size());
-		assertEquals(Links.class, text.getChildren().get(0).getClass());
-		assertEquals(13, text.getPosition(text.getChildren().get(0)));
-		assertEquals(Links.class, text.getChildren().get(1).getClass());
-		assertEquals(27, text.getPosition(text.getChildren().get(1)));
+		assertEquals(Paragraph.class, element.getClass());		
+		Paragraph paragraph = (Paragraph) element;
+		assertEquals(" Simple text . Simple text .", paragraph.getText());
+		assertEquals(2, paragraph.getChildren().size());
+		assertEquals(Link.class, paragraph.getChildren().get(0).getClass());
+		assertEquals(13, paragraph.getChildren().get(0).getRelativePosition());
+		assertEquals(Link.class, paragraph.getChildren().get(1).getClass());
+		assertEquals(27, paragraph.getChildren().get(1).getRelativePosition());
 	}
 }
