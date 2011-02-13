@@ -15,8 +15,22 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testBeginningAndEnding() {
-		String code = " ";
+	public void testVisitOnlyRootElements() {
+		Element mockedElement = mock(Element.class);
+		Element parent = mock(Element.class);
+		when(mockedElement.getParent()).thenReturn(parent);
+		
+		ParserVisitor mockedParserVisitor = mock(ParserVisitor.class);
+		when(mockedParserVisitor.isOnlyRoot()).thenReturn(true);
+		
+		parser.addVisitor(mockedParserVisitor);
+		
+		verify(mockedElement, never()).accept(any(ParserVisitor.class));
+	}
+	
+	@Test
+	public void testParseSimpleParagraph() {
+		String code = "It's a simple paragraph. ";
 		
 		ParserVisitor mockedParserVisitor = mock(ParserVisitor.class);
 		when(mockedParserVisitor.isOnlyRoot()).thenReturn(false);
@@ -33,6 +47,26 @@ public class ParserTest {
 	}
 	
 	@Test
+	public void testParsetwoSimpleParagraphs() {
+		String code = "It's the first simple paragraph.\nIt's the second simple paragraph.";
+		
+		ParserVisitor mockedParserVisitor = mock(ParserVisitor.class);
+		when(mockedParserVisitor.isOnlyRoot()).thenReturn(false);
+		
+		parser.addVisitor(mockedParserVisitor);
+		
+		parser.parse(code);
+		
+		InOrder inOrder = inOrder(mockedParserVisitor);
+				
+		inOrder.verify(mockedParserVisitor).isOnlyRoot();
+		inOrder.verify(mockedParserVisitor).visit(any(Paragraph.class));
+		inOrder.verify(mockedParserVisitor).isOnlyRoot();
+		inOrder.verify(mockedParserVisitor).visit(any(Paragraph.class));
+		verifyNoMoreInteractions(mockedParserVisitor);
+	}
+	
+	@Test
 	public void testParseHeaderAndLink() {
 		String code = "= Header1 =	\n		[[http://www.test.com/|test]]";
 		
@@ -42,8 +76,15 @@ public class ParserTest {
 		
 		parser.parse(code);
 		
-		verify(mockedParserVisitor).visit(any(Header.class));
-		verify(mockedParserVisitor).visit(any(Paragraph.class));
+		InOrder inOrder = inOrder(mockedParserVisitor);
+		
+		inOrder.verify(mockedParserVisitor).isOnlyRoot();
+		inOrder.verify(mockedParserVisitor).visit(any(Header.class));
+		inOrder.verify(mockedParserVisitor).isOnlyRoot();
+		inOrder.verify(mockedParserVisitor).visit(any(Paragraph.class));
+		inOrder.verify(mockedParserVisitor).isOnlyRoot();
+		inOrder.verify(mockedParserVisitor).visit(any(Link.class));
+		verifyNoMoreInteractions(mockedParserVisitor);
 	}
 	
 }

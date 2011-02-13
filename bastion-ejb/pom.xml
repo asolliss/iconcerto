@@ -60,7 +60,7 @@
 					<ejbVersion>3.1</ejbVersion>
 					<generateClient>true</generateClient>
 					<clientIncludes>
-						<clientInclude>iconcerto/bastion/beans/*Remote.class</clientInclude>
+						<clientInclude>iconcerto/bastion/ejb/*Remote.class</clientInclude>
 						<clientInclude>iconcerto/bastion/authorization/**</clientInclude>
 						<clientInclude>iconcerto/bastion/domain/**</clientInclude>
 					</clientIncludes>

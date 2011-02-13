@@ -1,4 +1,4 @@
-package iconcerto.bastion.entities;
+package iconcerto.bastion.domain.persistence;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,11 +17,11 @@ import javax.persistence.Table;
 @Entity
 @Table(schema="bastion", name="meta_values")
 @SequenceGenerator(name="meta_values_id_gen", sequenceName="bastion.meta_values_id_seq", allocationSize=4)
-public class MetaKeyEntities {
+public class MetaKeyEntity {
 
 	private Integer id;
-	private MetaKeyEntities key;
-	private UserEntities user;
+	private MetaKeyEntity key;
+	private UserEntity user;
 	private String value;
 
 	@Id
@@ -37,21 +37,21 @@ public class MetaKeyEntities {
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="meta_key")
-	public MetaKeyEntities getKey() {
+	public MetaKeyEntity getKey() {
 		return key;
 	}
 
-	public void setKey(MetaKeyEntities key) {
+	public void setKey(MetaKeyEntity key) {
 		this.key = key;
 	}
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="\"user\"")
-	public UserEntities getUser() {
+	public UserEntity getUser() {
 		return user;
 	}
 
-	public void setUser(UserEntities user) {
+	public void setUser(UserEntity user) {
 		this.user = user;
 	}
 

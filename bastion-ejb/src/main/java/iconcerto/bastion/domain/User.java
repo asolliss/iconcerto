@@ -2,20 +2,20 @@ package iconcerto.bastion.domain;
 
 import java.io.Serializable;
 
-import iconcerto.bastion.entities.UserEntities;
+import iconcerto.bastion.domain.persistence.UserEntity;
 
-public class Users implements Serializable {
+public class User implements Serializable {
 
 	private static final long serialVersionUID = 7908864736364501709L;
 	
 	private Integer id;
 	private String username;
 	
-	public Users() {
+	public User() {
 		
 	}
 	
-	public Users(UserEntities userEntity) {
+	public User(UserEntity userEntity) {
 		this.id = userEntity.getId();
 		this.username = userEntity.getUsername();
 	}

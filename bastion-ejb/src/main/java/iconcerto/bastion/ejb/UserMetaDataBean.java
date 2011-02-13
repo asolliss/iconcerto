@@ -1,8 +1,8 @@
-package iconcerto.bastion.beans;
+package iconcerto.bastion.ejb;
 
-import iconcerto.bastion.beans.UserMetaDataRemote;
-import iconcerto.bastion.domain.Users;
-import iconcerto.bastion.entities.UserEntities;
+import iconcerto.bastion.domain.User;
+import iconcerto.bastion.domain.persistence.UserEntity;
+import iconcerto.bastion.ejb.UserMetaDataRemote;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -15,16 +15,16 @@ public class UserMetaDataBean implements UserMetaDataRemote {
 	private EntityManager em;
 	
 	@Override
-	public Users getUser(String username) {
-		Users user = null;
+	public User getUser(String username) {
+		User user = null;
 		try {			
 			if (username != null) {
-				UserEntities userEntities = (UserEntities) em.createQuery("select u from UserEntities u where u.username = :username")
+				UserEntity userEntities = (UserEntity) em.createQuery("select u from UserEntities u where u.username = :username")
 											.setParameter("username", username).getSingleResult();
-				user = new Users(userEntities);
+				user = new User(userEntities);
 			}
 			else {
-				user = new Users();
+				user = new User();
 			}
     	}
 		catch (Throwable e) {

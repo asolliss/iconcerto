@@ -1,7 +1,7 @@
 package iconcerto.wiki.parser;
 
 public class CharAccessorIndexOutOfBoundsException extends
-		CharAccessorException {
+		CharAccessorRuntimeException {
 
 	private static final long serialVersionUID = 6672602230121741783L;
 

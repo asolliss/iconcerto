@@ -1,4 +1,4 @@
-package iconcerto.bastion.entities;
+package iconcerto.bastion.domain.persistence;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(schema="bastion", name="meta_keys")
 @SequenceGenerator(name="meta_keys_id_gen", sequenceName="bastion.meta_keys_id_seq", allocationSize=4)
-public class MetaValueEntities {
+public class MetaValueEntity {
 
 	private Integer id;
 	private String name;

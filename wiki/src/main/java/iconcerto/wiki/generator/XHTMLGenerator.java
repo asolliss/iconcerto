@@ -1,10 +1,12 @@
 package iconcerto.wiki.generator;
 
+import iconcerto.wiki.ejb.XHTML;
 import iconcerto.wiki.parser.Element;
 import iconcerto.wiki.parser.Header;
 import iconcerto.wiki.parser.Link;
 import iconcerto.wiki.parser.Paragraph;
 
+@XHTML
 public class XHTMLGenerator extends AbstractGenerator {
 
 	/**
@@ -12,6 +14,10 @@ public class XHTMLGenerator extends AbstractGenerator {
 	 * Example: /wiki/{value}
 	 */
 	public static final String INTERNAL_LINK_PATTERN = "INTERNAL_LINK_PATTERN";
+
+	public XHTMLGenerator() {
+		super();
+	}
 
 	@Override
 	public void visit(Header header) {

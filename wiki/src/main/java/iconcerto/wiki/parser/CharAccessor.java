@@ -48,7 +48,7 @@ public class CharAccessor {
 	 * Get the current char and increase the index
 	 * @return
 	 */
-	public char getChar() throws CharAccessorException {
+	public char getChar() throws CharAccessorRuntimeException {
 		if (!hasNext()) throw new CharAccessorIndexOutOfBoundsException();
 		return characters[index++];
 	}
@@ -61,7 +61,7 @@ public class CharAccessor {
 	 * Get the current char
 	 * @return
 	 */
-	public char getCharWithoutIncrement() throws CharAccessorException {
+	public char getCharWithoutIncrement() throws CharAccessorRuntimeException {
 		if (!hasNext()) throw new CharAccessorIndexOutOfBoundsException();
 		return characters[index];
 	}

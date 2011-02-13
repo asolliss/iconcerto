@@ -50,7 +50,8 @@ public class ParagraphParserTest {
 		assertNotNull(element.getParent());
 		assertEquals(Paragraph.class, element.getClass());		
 		Paragraph paragraph = (Paragraph) element;
-		assertEquals(" Simple text", paragraph.getText());	
+		assertEquals(" Simple text", paragraph.getText());
+		assertEquals(13, charAccessor.getIndex());		
 	}
 	
 	@Test

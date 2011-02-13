@@ -1,4 +1,4 @@
-package iconcerto.bastion.entities;
+package iconcerto.bastion.domain.persistence;
 
 import java.io.Serializable;
 import java.lang.Boolean;
@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Entity
 @Table(schema="bastion", name="users")
 @SequenceGenerator(name="users_id_gen", sequenceName="bastion.users_id_seq", allocationSize=4)
-public class UserEntities implements Serializable {
+public class UserEntity implements Serializable {
 
 	private static final long serialVersionUID = 8771325894640387481L;
 	
@@ -23,7 +23,7 @@ public class UserEntities implements Serializable {
 	private String password;
 	private Boolean blocked;
 
-	public UserEntities() {
+	public UserEntity() {
 		super();
 	}  
 	

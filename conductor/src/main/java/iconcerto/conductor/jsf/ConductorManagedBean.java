@@ -1,7 +1,7 @@
 package iconcerto.conductor.jsf;
 
-import iconcerto.bastion.beans.UserMetaDataRemote;
-import iconcerto.bastion.domain.Users;
+import iconcerto.bastion.domain.User;
+import iconcerto.bastion.ejb.UserMetaDataRemote;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -16,7 +16,7 @@ public class ConductorManagedBean {
 	@EJB
 	private UserMetaDataRemote userMetaData;
 	
-	private Users user;
+	private User user;
 	
 	public String getUsername() {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();

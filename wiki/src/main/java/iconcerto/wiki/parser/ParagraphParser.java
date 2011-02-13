@@ -33,8 +33,7 @@ public class ParagraphParser extends AbstractElementParser {
 			}
 			
 			if (element != null) {
-				//add an element-child
-				paragraph.addChild(element);
+				element.setParent(paragraph);
 				element.setRelativePosition(positionOfElement);
 				//add a previous text snippet 
 				sb.append(ca.getRange(snippetBeginning, element.getFirstCharIndex()));
@@ -50,6 +49,7 @@ public class ParagraphParser extends AbstractElementParser {
 		
 		paragraph.setLastCharIndex(ca.getIndex()-1);
 		paragraph.setText(sb.toString());
+		ca.skipLine();
 		
 		return paragraph;
 	}

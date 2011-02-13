@@ -131,6 +131,41 @@ public class XHTMLGeneratorTest {
 	}
 	
 	@Test
+	public void testParagraphWithLinkAtTheEnd() {
+		String text = "Simple  text ";
+		
+		Link mockedLink = mock(Link.class);
+		when(mockedLink.getLevel()).thenReturn(2);
+		when(mockedLink.getTitle()).thenReturn("link1");
+		when(mockedLink.getType()).thenReturn(Link.Type.EXTERNAL);
+		when(mockedLink.getUrl()).thenReturn("http://test.com");
+		when(mockedLink.getRelativePosition()).thenReturn(13);
+		doAnswer(new Answer<Object>() {
+			@Override
+			public Object answer(InvocationOnMock invocation) throws Throwable {
+				ParserVisitor visitor = (ParserVisitor) invocation.getArguments()[0];
+				visitor.visit((Link) invocation.getMock());
+				return null;
+			}
+		}).when(mockedLink).accept(any(ParserVisitor.class));
+		
+		Paragraph mockedParagraph = mock(Paragraph.class);
+		when(mockedParagraph.getLevel()).thenReturn(1);
+		when(mockedParagraph.getText()).thenReturn(text);		
+		List<Element> children = new ArrayList<Element>();
+		children.add(mockedLink);		
+		when(mockedParagraph.getChildren()).thenReturn(children);		
+		
+		xhtmlGenerator.visit(mockedParagraph);
+		
+		assertEquals(
+				"<p>Simple  text <a href=\"http://test.com\">link1</a></p>", 
+				xhtmlGenerator.getDocument()
+				);
+		
+	}
+	
+	@Test
 	public void testParagraphWithTwoLinks() {
 		String text = "Simple  text .";
 		

@@ -6,10 +6,20 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
-
+<f:metadata>
+	<f:viewParam name="page" value="#{wiki.name}"/>
+</f:metadata>
 <ui:composition template="main.xhtml">
-	<ui:define name="content">
-		
+	<ui:define name="content">		
+		<h:form prependId="false">
+			<h:outputText value="#{wiki.name}" />
+			<h:commandButton id="editingButton"  value="edit" action="#{wiki.edit}" disabled="#{wiki.editing}"/>
+			<h:commandButton id="browsingButton" value="browse" action="#{wiki.browse}" disabled="#{wiki.browsing}"/>
+			<h:commandButton id="savingButton" value="save" action="#{wiki.save}" disabled="#{wiki.saved}"/>
+			<br />
+			<h:outputText id="html" escape="false" value="#{wiki.HTML}" rendered="#{wiki.browsing}" />
+			<h:inputTextarea id="code" value="#{wiki.code}" rendered="#{wiki.editing}"/>
+		</h:form>				
 	</ui:define>
 </ui:composition>
 </html>
