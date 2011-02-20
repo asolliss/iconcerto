@@ -1,4 +1,4 @@
-package iconcerto.wiki.data;
+package iconcerto.wiki.services.data.dao;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;

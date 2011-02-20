@@ -1,6 +1,5 @@
 package iconcerto.wiki.generator;
 
-import iconcerto.wiki.ejb.XHTML;
 import iconcerto.wiki.parser.Element;
 import iconcerto.wiki.parser.Header;
 import iconcerto.wiki.parser.Link;

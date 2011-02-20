@@ -1,11 +1,11 @@
-package iconcerto.wiki.data;
+package iconcerto.wiki.service.data;
 
 import javax.ejb.Local;
 
 import iconcerto.wiki.domain.Page;
 
 @Local
-public interface WikiDataManager {
+public interface WikiDataService {
 
 	Page getPage(String name);
 	

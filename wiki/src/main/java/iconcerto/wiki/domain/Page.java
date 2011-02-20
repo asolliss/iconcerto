@@ -3,9 +3,14 @@ package iconcerto.wiki.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-import iconcerto.wiki.domain.persistence.PageEntity;
-import iconcerto.wiki.domain.persistence.RevisionEntity;
+import iconcerto.wiki.domain.entities.PageEntity;
+import iconcerto.wiki.domain.entities.RevisionEntity;
 
+/**
+ * Lightweight domain object
+ * @author ipogudin
+ *
+ */
 public class Page implements Serializable {
 
 	private static final long serialVersionUID = -9055888697243829641L;

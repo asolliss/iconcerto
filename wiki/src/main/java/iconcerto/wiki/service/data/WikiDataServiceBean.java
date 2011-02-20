@@ -1,6 +1,8 @@
-package iconcerto.wiki.data;
+package iconcerto.wiki.service.data;
 
 import iconcerto.wiki.domain.Page;
+import iconcerto.wiki.services.data.dao.PostgreSQL;
+import iconcerto.wiki.services.data.dao.WikiDAO;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
@@ -11,7 +13,7 @@ import javax.persistence.PersistenceContext;
 
 @Named
 @Stateless
-public class BasicWikiDataManager implements WikiDataManager {
+public class WikiDataServiceBean implements WikiDataService {
 
 	@PersistenceContext(unitName="wiki")
 	private EntityManager em;

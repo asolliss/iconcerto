@@ -1,9 +1,10 @@
-package iconcerto.wiki.ejb;
+package iconcerto.wiki.services.facades;
 
-import iconcerto.wiki.data.WikiDataManager;
 import iconcerto.wiki.domain.Page;
 import iconcerto.wiki.generator.Generator;
+import iconcerto.wiki.generator.XHTML;
 import iconcerto.wiki.parser.Parser;
+import iconcerto.wiki.service.data.WikiDataService;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -16,14 +17,14 @@ import javax.inject.Named;
  */
 @Named
 @Stateless
-public class WikiBean implements WikiBeanRemote {
+public class WikiServiceBean implements WikiService {
 
 	@Inject
 	private Parser parser;
 	@Inject @XHTML
 	private Generator generator;
 	@EJB
-	private WikiDataManager dataManager;
+	private WikiDataService dataService;
 	
     @PostConstruct
     public void init() {
@@ -32,12 +33,12 @@ public class WikiBean implements WikiBeanRemote {
 
 	@Override
 	public Page getPage(String name) {
-		return dataManager.getPage(name);
+		return dataService.getPage(name);
 	}
 
 	@Override
 	public Page save(Page page) {
-		return dataManager.save(page);
+		return dataService.save(page);
 	}
 
 	@Override

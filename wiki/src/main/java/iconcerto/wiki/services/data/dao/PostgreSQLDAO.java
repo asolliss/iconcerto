@@ -1,4 +1,4 @@
-package iconcerto.wiki.data;
+package iconcerto.wiki.services.data.dao;
 
 import java.util.Date;
 import java.util.UUID;
@@ -8,8 +8,8 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 
 import iconcerto.wiki.domain.Page;
-import iconcerto.wiki.domain.persistence.PageEntity;
-import iconcerto.wiki.domain.persistence.RevisionEntity;
+import iconcerto.wiki.domain.entities.PageEntity;
+import iconcerto.wiki.domain.entities.RevisionEntity;
 
 @PostgreSQL
 public class PostgreSQLDAO implements WikiDAO {

@@ -1,8 +1,6 @@
-package iconcerto.wiki.ejb;
+package iconcerto.wiki.generator;
 
 import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
@@ -13,5 +11,5 @@ import  javax.inject.Qualifier;
 
 @Qualifier
 @Retention(RUNTIME)
-@Target({TYPE, METHOD, FIELD, PARAMETER})
+@Target({TYPE, FIELD})
 public @interface XHTML {}

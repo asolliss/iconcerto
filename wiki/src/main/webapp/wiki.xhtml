@@ -12,13 +12,24 @@
 <ui:composition template="main.xhtml">
 	<ui:define name="content">		
 		<h:form prependId="false">
-			<h:outputText value="#{wiki.name}" />
-			<h:commandButton id="editingButton"  value="edit" action="#{wiki.edit}" disabled="#{wiki.editing}"/>
-			<h:commandButton id="browsingButton" value="browse" action="#{wiki.browse}" disabled="#{wiki.browsing}"/>
-			<h:commandButton id="savingButton" value="save" action="#{wiki.save}" disabled="#{wiki.saved}"/>
-			<br />
+			<h:panelGrid columns="2" styleClass="wiki-top-menu" columnClasses="name,buttons">
+				<h:panelGroup layout="block">
+					<h:outputText value="#{wiki.name}" />
+				</h:panelGroup>
+				<h:panelGroup layout="block">
+					<h:commandButton id="editingButton"  value="edit" action="#{wiki.edit}" disabled="#{wiki.editing}">
+						<f:ajax event="action" execute="@form" render="@form"/>
+					</h:commandButton>
+					<h:commandButton id="browsingButton" value="browse" action="#{wiki.browse}" disabled="#{wiki.browsing}">
+						<f:ajax event="action" execute="@form" render="@form"/>
+					</h:commandButton>
+					<h:commandButton id="savingButton" value="save" action="#{wiki.save}" disabled="#{wiki.saved}">
+						<f:ajax event="action" execute="@form" render="@this"/>
+					</h:commandButton>
+				</h:panelGroup>
+			</h:panelGrid>
 			<h:outputText id="html" escape="false" value="#{wiki.HTML}" rendered="#{wiki.browsing}" />
-			<h:inputTextarea id="code" value="#{wiki.code}" rendered="#{wiki.editing}"/>
+			<h:inputTextarea id="code" value="#{wiki.code}" rendered="#{wiki.editing}" styleClass="wiki-editor"/>
 		</h:form>				
 	</ui:define>
 </ui:composition>

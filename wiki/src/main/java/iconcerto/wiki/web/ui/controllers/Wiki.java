@@ -1,7 +1,9 @@
-package iconcerto.wiki.jsf;
+package iconcerto.wiki.web.ui.controllers;
 
 import iconcerto.wiki.domain.Page;
-import iconcerto.wiki.ejb.WikiBeanRemote;
+import iconcerto.wiki.services.facades.WikiService;
+
+import static iconcerto.wiki.web.ui.controllers.Wiki.States.*;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -10,15 +12,14 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean(name="wiki")
 @SessionScoped
 public class Wiki {
+
+	protected static enum States{BROWSING, EDITING};
 	
-	public static final int BROWSING = 1;
-	public static final int EDITING = 2;
-	
-	private int state = BROWSING;
+	private States state = BROWSING;
 	private Page page;
 	
 	@EJB
-	private WikiBeanRemote wikiBean;
+	private WikiService wikiService;
 	
 	public String getName() {
 		loadPage(null);
@@ -42,7 +43,7 @@ public class Wiki {
 	}
 	
 	public void browse() {
-		page = wikiBean.convert(page);
+		page = wikiService.convert(page);
 		state = BROWSING;
 	}
 	
@@ -51,25 +52,25 @@ public class Wiki {
 	}
 	
 	public boolean isBrowsing() {
-		return BROWSING == state;
+		return BROWSING.equals(state);
 	}
 	
 	public boolean isEditing() {
-		return EDITING == state;
+		return EDITING.equals(state);
 	}
 	
 	public boolean isSaved() {
-		return !page.isChanged() || !page.isNew();
+		return !page.isChanged() && !page.isNew();
 	}
 	
 	public void save() {
-		page = wikiBean.save(page);
+		page = wikiService.save(page);
 	}
 
 	private void loadPage(String name) {
 		if (page == null || (name != null && !page.getName().equals(name))) {
 			if (name == null) name = "Index";
-			page = wikiBean.getPage(name);
+			page = wikiService.getPage(name);
 		}
 	}
 	

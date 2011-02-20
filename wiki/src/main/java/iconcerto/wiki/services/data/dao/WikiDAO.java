@@ -1,4 +1,4 @@
-package iconcerto.wiki.data;
+package iconcerto.wiki.services.data.dao;
 
 import javax.persistence.EntityManager;
 

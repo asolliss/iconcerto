@@ -1,4 +1,4 @@
-package iconcerto.wiki.domain.persistence;
+package iconcerto.wiki.domain.entities;
 
 import java.util.Date;
 

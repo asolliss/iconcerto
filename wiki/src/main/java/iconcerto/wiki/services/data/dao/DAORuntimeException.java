@@ -1,4 +1,4 @@
-package iconcerto.wiki.data;
+package iconcerto.wiki.services.data.dao;
 
 public class DAORuntimeException extends RuntimeException {
 

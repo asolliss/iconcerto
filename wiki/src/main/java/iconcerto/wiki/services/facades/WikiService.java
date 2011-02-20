@@ -1,10 +1,10 @@
-package iconcerto.wiki.ejb;
+package iconcerto.wiki.services.facades;
 import iconcerto.wiki.domain.Page;
 
 import javax.ejb.Remote;
 
 @Remote
-public interface WikiBeanRemote {
+public interface WikiService {
 
 	/**
 	 * Get a page by name.
