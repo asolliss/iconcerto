@@ -17,14 +17,14 @@
 					<h:outputText value="#{wiki.name}" />
 				</h:panelGroup>
 				<h:panelGroup layout="block">
-					<h:commandButton id="editingButton"  value="edit" action="#{wiki.edit}" disabled="#{wiki.editing}">
-						<f:ajax event="action" execute="@form" render="@form"/>
+					<h:commandButton id="editingButton" value="#{wikiMessages.edit}" action="#{wiki.edit}" disabled="#{wiki.editing}">
+						<f:ajax event="action" execute="@form" render="@form" onevent="lockerAjaxResponse" />
 					</h:commandButton>
-					<h:commandButton id="browsingButton" value="browse" action="#{wiki.browse}" disabled="#{wiki.browsing}">
-						<f:ajax event="action" execute="@form" render="@form"/>
+					<h:commandButton id="browsingButton" value="#{wikiMessages.browse}" action="#{wiki.browse}" disabled="#{wiki.browsing}">
+						<f:ajax event="action" execute="@form" render="@form" onevent="lockerAjaxResponse" />
 					</h:commandButton>
-					<h:commandButton id="savingButton" value="save" action="#{wiki.save}" disabled="#{wiki.saved}">
-						<f:ajax event="action" execute="@form" render="@this"/>
+					<h:commandButton id="savingButton" value="#{wikiMessages.save}" action="#{wiki.save}" disabled="#{wiki.saved}">
+						<f:ajax event="action" execute="@form" render="@this" onevent="lockerAjaxResponse" />
 					</h:commandButton>
 				</h:panelGroup>
 			</h:panelGrid>

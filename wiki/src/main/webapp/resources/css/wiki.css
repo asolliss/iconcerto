@@ -122,10 +122,13 @@ form {
 
 .wiki-top-menu .name {
 	width: auto;
+	padding-left: 10px;
+	color: #ffffff;
+	font-weight: bold;
 }
 
 .wiki-top-menu .buttons {
-	width: 300px;
+	width: 400px;
 	text-align: right;
 }
 
@@ -137,3 +140,31 @@ form {
 	border: none;
 	background-color: #fafafa;
 }
+
+div.blockMsg {
+    width:  30%;
+    top:    30%;
+    left:   35%;
+    text-align: center;
+    background-color: #404040;
+    border: 2px solid #e0e0e0;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)"; 
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30); 
+    -moz-opacity:.50;
+    opacity:.50;
+    padding: 10px;
+    color: #f0f0f0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+div.blockOverlay {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=25)"; 
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=25); 
+    -moz-opacity:.40;
+    opacity:.40;
+    background-color: #000;
+}
+

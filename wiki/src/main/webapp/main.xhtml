@@ -8,6 +8,9 @@
 <h:head>
   <title><ui:insert name="title">Wiki</ui:insert></title>
   <h:outputStylesheet library="css" name="wiki.css"/>
+  <h:outputScript library="javascript" name="jquery-min.js"/>
+  <h:outputScript library="javascript" name="jquery.blockUI.js"/>
+  <h:outputScript library="javascript" name="screen-locker.js" />
 </h:head>
 
 <h:body>
@@ -34,6 +37,8 @@
   	</td>    
   </tr>
 </table>
-
 </h:body>
+<h:outputScript>
+	lockMessage('#{wikiMessages.waitingMessage}');
+</h:outputScript>
 </html>
