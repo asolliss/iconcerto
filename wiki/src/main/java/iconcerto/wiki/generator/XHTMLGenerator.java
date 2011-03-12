@@ -4,6 +4,7 @@ import iconcerto.wiki.parser.Element;
 import iconcerto.wiki.parser.Header;
 import iconcerto.wiki.parser.Link;
 import iconcerto.wiki.parser.Paragraph;
+import iconcerto.wiki.parser.Span;
 
 @XHTML
 public class XHTMLGenerator extends AbstractGenerator {
@@ -57,6 +58,24 @@ public class XHTMLGenerator extends AbstractGenerator {
 			append(paragraph.getText());
 		}		
 		append("</p>");
+	}
+
+	@Override
+	public void visit(Span span) {
+		append("<span class=\"").append(span.getType().toString().toLowerCase()).append("\">");
+		if (span.getChildren().size() > 0) {
+			int beginIndex = 0;			
+			for (Element element: span.getChildren()) {
+				append(span.getText().substring(beginIndex, element.getRelativePosition()));
+				beginIndex = element.getRelativePosition();
+				element.accept(this);
+			}
+			append(span.getText().substring(beginIndex, span.getText().length()));
+		}
+		else {
+			append(span.getText());
+		}		
+		append("</span>");
 	}
 
 	@Override

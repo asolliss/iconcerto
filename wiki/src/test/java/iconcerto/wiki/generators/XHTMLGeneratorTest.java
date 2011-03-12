@@ -12,6 +12,8 @@ import iconcerto.wiki.parser.Header;
 import iconcerto.wiki.parser.Link;
 import iconcerto.wiki.parser.Paragraph;
 import iconcerto.wiki.parser.ParserVisitor;
+import iconcerto.wiki.parser.Span;
+import iconcerto.wiki.parser.Span.Type;
 
 import org.junit.*;
 import org.mockito.invocation.InvocationOnMock;
@@ -90,6 +92,93 @@ public class XHTMLGeneratorTest {
 		
 		assertEquals(
 				"<p>"+text+"</p>", 
+				xhtmlGenerator.getDocument()
+				);
+		
+	}
+	
+	@Test
+	public void testParagraphWithItalicSpan() {
+		String text = "Simple .";
+		
+		Span mockedSpan = mock(Span.class);
+		when(mockedSpan.getLevel()).thenReturn(2);
+		when(mockedSpan.getText()).thenReturn("text");
+		when(mockedSpan.getType()).thenReturn(Type.ITALIC);
+		when(mockedSpan.getRelativePosition()).thenReturn(7);
+		doAnswer(new Answer<Object>() {
+			@Override
+			public Object answer(InvocationOnMock invocation) throws Throwable {
+				ParserVisitor visitor = (ParserVisitor) invocation.getArguments()[0];
+				visitor.visit((Span) invocation.getMock());
+				return null;
+			}
+		}).when(mockedSpan).accept(any(ParserVisitor.class));
+		
+		Paragraph mockedParagraph = mock(Paragraph.class);
+		when(mockedParagraph.getLevel()).thenReturn(1);
+		when(mockedParagraph.getText()).thenReturn(text);		
+		when(mockedParagraph.getChildren()).thenReturn(new ArrayList<Element>());
+		List<Element> children = new ArrayList<Element>();
+		children.add(mockedSpan);		
+		when(mockedParagraph.getChildren()).thenReturn(children);	
+		
+		xhtmlGenerator.visit(mockedParagraph);
+		
+		assertEquals(
+				"<p>Simple <span class=\"italic\">text</span>.</p>", 
+				xhtmlGenerator.getDocument()
+				);
+		
+	}
+	
+	@Test
+	public void testParagraphWithItalicSpanIncludesBoldSpan() {
+		String text = "Simple .";
+		
+		Span mockedItalicSpan = mock(Span.class);
+		when(mockedItalicSpan.getLevel()).thenReturn(2);
+		when(mockedItalicSpan.getText()).thenReturn("italic  text");
+		when(mockedItalicSpan.getType()).thenReturn(Type.ITALIC);
+		when(mockedItalicSpan.getRelativePosition()).thenReturn(7);
+		doAnswer(new Answer<Object>() {
+			@Override
+			public Object answer(InvocationOnMock invocation) throws Throwable {
+				ParserVisitor visitor = (ParserVisitor) invocation.getArguments()[0];
+				visitor.visit((Span) invocation.getMock());
+				return null;
+			}
+		}).when(mockedItalicSpan).accept(any(ParserVisitor.class));
+		
+		Span mockedBoldSpan = mock(Span.class);
+		when(mockedBoldSpan.getLevel()).thenReturn(3);
+		when(mockedBoldSpan.getText()).thenReturn("bold");
+		when(mockedBoldSpan.getType()).thenReturn(Type.BOLD);
+		when(mockedBoldSpan.getRelativePosition()).thenReturn(7);
+		doAnswer(new Answer<Object>() {
+			@Override
+			public Object answer(InvocationOnMock invocation) throws Throwable {
+				ParserVisitor visitor = (ParserVisitor) invocation.getArguments()[0];
+				visitor.visit((Span) invocation.getMock());
+				return null;
+			}
+		}).when(mockedBoldSpan).accept(any(ParserVisitor.class));
+		List<Element> spanChildren = new ArrayList<Element>();
+		spanChildren.add(mockedBoldSpan);
+		when(mockedItalicSpan.getChildren()).thenReturn(spanChildren);
+		
+		Paragraph mockedParagraph = mock(Paragraph.class);
+		when(mockedParagraph.getLevel()).thenReturn(1);
+		when(mockedParagraph.getText()).thenReturn(text);		
+		when(mockedParagraph.getChildren()).thenReturn(new ArrayList<Element>());
+		List<Element> children = new ArrayList<Element>();
+		children.add(mockedItalicSpan);		
+		when(mockedParagraph.getChildren()).thenReturn(children);	
+		
+		xhtmlGenerator.visit(mockedParagraph);
+		
+		assertEquals(
+				"<p>Simple <span class=\"italic\">italic <span class=\"bold\">bold</span> text</span>.</p>", 
 				xhtmlGenerator.getDocument()
 				);
 		

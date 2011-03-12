@@ -185,4 +185,43 @@ public class CharAccessorTest {
 		assertEquals(23, charAccessor.getIndex());
 	}
 	
+	@Test
+	public void testPushOneStopSequence() {
+		//"test string ttt\neee abc"
+		charAccessor.pushStopSequence("str".toCharArray());
+		
+		while (charAccessor.hasNext()) {
+			charAccessor.getChar();
+		}
+		
+		assertEquals(4, charAccessor.getPreviousIndex());
+	}
+	
+	@Test
+	public void testPushAndPopTwoStopSequence() {
+		//"test string ttt\neee abc"
+		charAccessor.pushStopSequence("str".toCharArray());
+		charAccessor.pushStopSequence("st".toCharArray());
+		
+		while (charAccessor.hasNext()) {
+			charAccessor.getChar();
+		}
+		
+		assertEquals(1, charAccessor.getPreviousIndex());
+		
+		assertArrayEquals("st".toCharArray(), charAccessor.popStopSequence());
+		
+		while (charAccessor.hasNext()) {
+			charAccessor.getChar();
+		}
+		
+		assertEquals(4, charAccessor.getPreviousIndex());
+		assertArrayEquals("str".toCharArray(), charAccessor.popStopSequence());
+	}
+	
+	@Test(expected=CharAccessorRuntimeException.class)
+	public void testPopOnEmptyStopSequence() {
+		charAccessor.popStopSequence();
+	}
+	
 }

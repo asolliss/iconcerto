@@ -10,9 +10,12 @@ import java.util.Arrays;
 public class CharAccessor {
 	
 	public final static char NULL_CHAR = '\0';
+	private final static int STOP_SEQUENCE_STACK_SIZE = 32;
 	
 	private int index;
 	private char[] characters;
+	private char[][] stopSequenceStack;
+	private int stopSequenceIndex;
 	
 	public CharAccessor(String characters) {
 		init(characters);
@@ -21,6 +24,9 @@ public class CharAccessor {
 	public void init(String characters) {
 		clear();
 		this.characters = characters.toCharArray();
+		
+		stopSequenceStack = new char[STOP_SEQUENCE_STACK_SIZE][];
+		stopSequenceIndex = -1;
 	}
 	
 	public void clear() {
@@ -41,7 +47,7 @@ public class CharAccessor {
 	}	
 	
 	public boolean hasNext() {
-		return characters.length > index;
+		return characters.length > index && !matchStopSequence();
 	}
 	
 	/**
@@ -116,6 +122,18 @@ public class CharAccessor {
 	}
 	
 	/**
+	 * Match a sequence in the current index of a charAccessor.
+	 * If match is true then the current index is set at a position after a sequence
+	 * else a position of the current index is not changed.
+	 * @param sequence
+	 * @return
+	 * @throws ParserRuntimeException
+	 */
+	public boolean match(char[] sequence) throws ParserRuntimeException {
+		return Utils.match(sequence, this);
+	}
+	
+	/**
 	 * Get a certain range from characters 
 	 * @param beginning
 	 * @param end
@@ -125,26 +143,82 @@ public class CharAccessor {
 		return Arrays.copyOfRange(characters, beginning, end);
 	}
 	
+	/**
+	 * Push a stop sequence into the stop sequence stack
+	 * @param stopSequence
+	 * @throws ParserRuntimeException
+	 */
+	public void pushStopSequence(char[] stopSequence) throws CharAccessorRuntimeException {
+		if (stopSequenceIndex + 1 >= STOP_SEQUENCE_STACK_SIZE) {
+			throw new CharAccessorRuntimeException("CharAccessors's stop sequence stack is full");
+		}
+		stopSequenceStack[++stopSequenceIndex] = stopSequence;
+	}
+	
+	/**
+	 * Pop a stop sequence from the stop sequence stack
+	 * @return
+	 * @throws ParserRuntimeException
+	 */
+	public char[] popStopSequence() throws CharAccessorRuntimeException {
+		if (stopSequenceIndex < 0) {
+			throw new CharAccessorRuntimeException("CharAccessors's stop sequence stack already is empty");
+		}
+		
+		char[] stopSequence = stopSequenceStack[stopSequenceIndex];
+		stopSequenceStack[stopSequenceIndex] = null;
+		stopSequenceIndex--;
+		return stopSequence;
+	}
+	
+	/**
+	 * Match a current stop sequence in a current position
+	 * @return
+	 */
+	private boolean matchStopSequence() {
+		
+		if (stopSequenceIndex < 0) return false;
+		
+		int localIndex = index;
+		char[] stopSequence = stopSequenceStack[stopSequenceIndex];
+		
+		if (stopSequence[0] != characters[localIndex]) return false;
+				
+		int length = characters.length;
+		int localStopSequenceIndex = 1;
+		int stopSequenceLength = stopSequence.length;
+		
+		localIndex++;
+		for (
+				; 
+				localIndex < length && localStopSequenceIndex < stopSequenceLength
+				; 
+				localIndex++,
+				localStopSequenceIndex++
+				) {			
+			if (stopSequence[localStopSequenceIndex] !=
+						characters[localIndex]) break;
+		}
+		
+		return localStopSequenceIndex == stopSequenceLength;
+	}
+	
 	private void lookFor(char[] sequence, boolean single) throws ParserRuntimeException {
 		if (sequence == null || sequence.length < 1) {
 			throw new ParserRuntimeException("The char sequence is empty or null.");
 		} 
 		
-		int targetIndex = sequence.length;
-		int i = 0;
+		boolean found = false;
 		while (hasNext()) {
 			char c = getChar();
 			if (single && c == '\n') break;
-			if (sequence[i] == c) {
-				i++;
-				if (i == targetIndex) break;				
-			}
-			else if (i > 0) {
-				i = 0;
+			if (Utils.match(sequence, this)) {
+				found = true;
+				break;
 			}
 		}
 		
-		if (i != targetIndex) {
+		if (!found) {
 			throw new ParserRuntimeException("The char sequence is not found.");
 		}
 	}

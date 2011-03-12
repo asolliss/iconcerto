@@ -12,9 +12,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-/**
- * Session Bean implementation class WikiBean
- */
 @Named
 @Stateless
 public class WikiServiceBean implements WikiService {

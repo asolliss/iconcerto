@@ -8,5 +8,7 @@ public interface ParserVisitor {
 	
 	void visit(Paragraph paragraph);
 	
+	void visit(Span span);
+	
 	boolean isOnlyRoot();
 }

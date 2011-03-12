@@ -4,17 +4,19 @@ import java.util.Arrays;
 
 public class LinkParser extends AbstractElementParser {
 
+	public LinkParser() {
+		addDelimiter(new Delimiter(Delimiter.DEFAULT, "[[".toCharArray(), "]]".toCharArray()));
+	}
+
 	@Override
 	public Element parse(ParseBundle parseBundle) {
 		Link link = null;
 		CharAccessor ca = parseBundle.getCharAccessor();
 		int caIndex = ca.getIndex();
 		try {
-			char c1 = ca.getChar();
-			char c2 = ca.getChar();
-			if (c1 == '[' && c2 == '[') {
+			if (ca.match(getDefaultDelimiter().getLeftDelimiter())) {
 				int firstCharIndex = ca.getIndex() - 2;
-				ca.lookForAtSingleLine("]]".toCharArray());
+				ca.lookForAtSingleLine(getDefaultDelimiter().getRightDelimiter());
 				int lastCharIndex = ca.getIndex()-1;
 				char[] meta = ca.getRange(firstCharIndex+2, lastCharIndex-1);
 				int i = 0;
@@ -41,10 +43,6 @@ public class LinkParser extends AbstractElementParser {
 				else {
 					link.setTitle(link.getUrl());
 				}
-			}
-			else {
-				ca.returnChar();
-				ca.returnChar();
 			}
 		}
 		catch (CharAccessorIndexOutOfBoundsException e) {

@@ -3,6 +3,7 @@ package iconcerto.wiki.parser;
 public class ParagraphParser extends AbstractElementParser {
 	
 	public ParagraphParser() {
+		addElementParser(new SpanParser());
 		addElementParser(new LinkParser());
 	}
 
@@ -26,6 +27,7 @@ public class ParagraphParser extends AbstractElementParser {
 			
 			Element element = null;
 			for (ElementParsers elementParser: getElementsParsers()) {
+				elementParser.setCurrentParent(paragraph);
 				element = elementParser.parse(parseBundle);
 				if (element != null) {					
 					break;
@@ -33,7 +35,6 @@ public class ParagraphParser extends AbstractElementParser {
 			}
 			
 			if (element != null) {
-				element.setParent(paragraph);
 				element.setRelativePosition(positionOfElement);
 				//add a previous text snippet 
 				sb.append(ca.getRange(snippetBeginning, element.getFirstCharIndex()));
