@@ -4,16 +4,20 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import iconcerto.wiki.generator.XHTMLGenerator;
+import iconcerto.wiki.parser.Cell;
 import iconcerto.wiki.parser.Element;
 import iconcerto.wiki.parser.Header;
 import iconcerto.wiki.parser.Link;
 import iconcerto.wiki.parser.Paragraph;
 import iconcerto.wiki.parser.ParserVisitor;
+import iconcerto.wiki.parser.Row;
 import iconcerto.wiki.parser.Span;
 import iconcerto.wiki.parser.Span.Type;
+import iconcerto.wiki.parser.Table;
 
 import org.junit.*;
 import org.mockito.invocation.InvocationOnMock;
@@ -303,6 +307,70 @@ public class XHTMLGeneratorTest {
 				xhtmlGenerator.getDocument()
 				);
 		
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Test
+	public void testOneRowTable() {
+		String firstCellText = "first cell";
+		
+		Paragraph mockedParagraph = mock(Paragraph.class);
+		when(mockedParagraph.getText()).thenReturn(firstCellText);
+		when(mockedParagraph.getChildren()).thenReturn((List)Collections.emptyList());
+		doAnswer(new Answer<Object>() {
+			@Override
+			public Object answer(InvocationOnMock invocation) throws Throwable {
+				ParserVisitor visitor = (ParserVisitor) invocation.getArguments()[0];
+				visitor.visit((Paragraph) invocation.getMock());
+				return null;
+			}
+		}).when(mockedParagraph).accept(any(ParserVisitor.class));
+		
+		Cell mockedCell = mock(Cell.class);
+		List<Element> cellElements = new ArrayList<Element>();
+		cellElements.add(mockedParagraph);
+		when(mockedCell.getChildren()).thenReturn(cellElements);
+		doAnswer(new Answer<Object>() {
+			@Override
+			public Object answer(InvocationOnMock invocation) throws Throwable {
+				ParserVisitor visitor = (ParserVisitor) invocation.getArguments()[0];
+				visitor.visit((Cell) invocation.getMock());
+				return null;
+			}
+		}).when(mockedCell).accept(any(ParserVisitor.class));
+		
+		Row mockedRow = mock(Row.class);
+		List<Element> rowElements = new ArrayList<Element>();
+		rowElements.add(mockedCell);
+		when(mockedRow.getChildren()).thenReturn(rowElements);
+		doAnswer(new Answer<Object>() {
+			@Override
+			public Object answer(InvocationOnMock invocation) throws Throwable {
+				ParserVisitor visitor = (ParserVisitor) invocation.getArguments()[0];
+				visitor.visit((Row) invocation.getMock());
+				return null;
+			}
+		}).when(mockedRow).accept(any(ParserVisitor.class));
+		
+		Table mockedTable = mock(Table.class);
+		List<Element> tableElements = new ArrayList<Element>();
+		tableElements.add(mockedRow);
+		when(mockedTable.getChildren()).thenReturn(tableElements);
+		doAnswer(new Answer<Object>() {
+			@Override
+			public Object answer(InvocationOnMock invocation) throws Throwable {
+				ParserVisitor visitor = (ParserVisitor) invocation.getArguments()[0];
+				visitor.visit((Table) invocation.getMock());
+				return null;
+			}
+		}).when(mockedTable).accept(any(ParserVisitor.class));
+		
+		xhtmlGenerator.visit(mockedTable);
+		
+		assertEquals(
+				"<table><tr><td><p>"+firstCellText+"</p></td></tr></table>", 
+				xhtmlGenerator.getDocument()
+				);
 	}
 	
 }

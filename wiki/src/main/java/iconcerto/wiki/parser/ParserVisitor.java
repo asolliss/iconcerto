@@ -10,5 +10,11 @@ public interface ParserVisitor {
 	
 	void visit(Span span);
 	
+	void visit(Table table);
+	
+	void visit(Row row);
+	
+	void visit(Cell cell);
+	
 	boolean isOnlyRoot();
 }

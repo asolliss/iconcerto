@@ -66,6 +66,12 @@ public class Wiki {
 	public void save() {
 		page = wikiService.save(page);
 	}
+	
+	public void rollBack() {
+		String name = page.getName();
+		page = null;
+		loadPage(name);
+	}
 
 	private void loadPage(String name) {
 		if (page == null || (name != null && !page.getName().equals(name))) {

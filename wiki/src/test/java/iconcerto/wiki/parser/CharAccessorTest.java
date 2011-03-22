@@ -224,4 +224,24 @@ public class CharAccessorTest {
 		charAccessor.popStopSequence();
 	}
 	
+	@Test
+	public void testEmptyTillEndOfLineWithPositiveResult() {
+		String testString = "first line   \nsecond line  ";
+		charAccessor.init(testString);
+		charAccessor.setIndex(10);
+		
+		assertTrue(charAccessor.isEmptyTillEndOfLine());
+		assertEquals(14, charAccessor.getIndex());
+	}
+	
+	@Test
+	public void testEmptyTillEndOfLineWithNegativeResult() {
+		String testString = "first line\nsecond line  ";
+		charAccessor.init(testString);
+		charAccessor.setIndex(5);
+		
+		assertFalse(charAccessor.isEmptyTillEndOfLine());
+		assertEquals(5, charAccessor.getIndex());
+	}
+	
 }

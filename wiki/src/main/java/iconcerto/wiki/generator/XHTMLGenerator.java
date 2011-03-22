@@ -1,10 +1,13 @@
 package iconcerto.wiki.generator;
 
+import iconcerto.wiki.parser.Cell;
 import iconcerto.wiki.parser.Element;
 import iconcerto.wiki.parser.Header;
 import iconcerto.wiki.parser.Link;
 import iconcerto.wiki.parser.Paragraph;
+import iconcerto.wiki.parser.Row;
 import iconcerto.wiki.parser.Span;
+import iconcerto.wiki.parser.Table;
 
 @XHTML
 public class XHTMLGenerator extends AbstractGenerator {
@@ -76,6 +79,39 @@ public class XHTMLGenerator extends AbstractGenerator {
 			append(span.getText());
 		}		
 		append("</span>");
+	}
+
+	@Override
+	public void visit(Table table) {
+		append("<table>");
+		if (table.getChildren().size() > 0) {
+			for (Element element: table.getChildren()) {
+				element.accept(this);
+			}
+		}
+		append("</table>");
+	}
+
+	@Override
+	public void visit(Row row) {
+		append("<tr>");
+		if (row.getChildren().size() > 0) {
+			for (Element element: row.getChildren()) {
+				element.accept(this);
+			}
+		}
+		append("</tr>");
+	}
+
+	@Override
+	public void visit(Cell cell) {
+		append("<td>");
+		if (cell.getChildren().size() > 0) {
+			for (Element element: cell.getChildren()) {
+				element.accept(this);
+			}
+		}
+		append("</td>");
 	}
 
 	@Override

@@ -172,6 +172,38 @@ public class CharAccessor {
 	}
 	
 	/**
+	 * Check empty space from the current index to end of line.
+	 * If true then the current index is set at first char of new line.
+	 * @return true if empty
+	 */
+	public boolean isEmptyTillEndOfLine() throws CharAccessorRuntimeException {
+		boolean result = false;
+		
+		int index = getIndex();
+		
+		try {
+			while (hasNext()) {
+				char c = getChar();			
+				if (c == '\n') {
+					result = true;
+					break;
+				}
+				if (c != ' ') {
+					result = false;
+					break;
+				}
+			}
+		}
+		finally {
+			if (!result) {
+				setIndex(index);
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
 	 * Match a current stop sequence in a current position
 	 * @return
 	 */

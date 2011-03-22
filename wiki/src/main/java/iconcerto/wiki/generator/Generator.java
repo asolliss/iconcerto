@@ -1,8 +1,8 @@
 package iconcerto.wiki.generator;
 
-import iconcerto.wiki.parser.ParserVisitor;
+import iconcerto.wiki.parser.AbstractParserVisitor;
 
-public abstract class Generator implements ParserVisitor {
+public abstract class Generator extends AbstractParserVisitor {
 	
 	public abstract String getDocument();
 	

@@ -7,8 +7,6 @@ import iconcerto.wiki.parser.Span.Type;
 
 import org.junit.*;
 
-
-
 public class SpanParserTest {
 
 	private SpanParser spanParser;

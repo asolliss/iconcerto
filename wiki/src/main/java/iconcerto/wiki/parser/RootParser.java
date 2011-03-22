@@ -11,6 +11,7 @@ public class RootParser extends AbstractElementParser {
 	
 	public RootParser() {
 		elementParsers.add(new HeaderParser());
+		elementParsers.add(new TableParser());
 		elementParsers.add(new ParagraphParser());
 	}
 	

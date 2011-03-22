@@ -26,9 +26,10 @@
 					<h:commandButton id="savingButton" value="#{wikiMessages.save}" action="#{wiki.save}" disabled="#{wiki.saved}">
 						<f:ajax event="action" execute="@form" render="@this" onevent="lockerAjaxResponse" />
 					</h:commandButton>
+					<h:commandButton id="refreshButton" value="#{wikiMessages.rollBack}" action="#{wiki.rollBack}" disabled="#{wiki.saved}" />
 				</h:panelGroup>
 			</h:panelGrid>
-			<h:outputText id="html" escape="false" value="#{wiki.HTML}" rendered="#{wiki.browsing}" />
+			<h:outputText id="html" escape="false" value="#{wiki.HTML}" rendered="#{wiki.browsing}" styleClass="wiki" />
 			<h:inputTextarea id="code" value="#{wiki.code}" rendered="#{wiki.editing}" styleClass="wiki-editor"/>
 		</h:form>				
 	</ui:define>
