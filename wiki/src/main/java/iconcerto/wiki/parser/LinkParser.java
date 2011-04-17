@@ -1,5 +1,7 @@
 package iconcerto.wiki.parser;
 
+import iconcerto.wiki.parser.exceptions.ParsingIndexOutOfBoundsException;
+
 import java.util.Arrays;
 
 public class LinkParser extends AbstractElementParser {
@@ -45,7 +47,7 @@ public class LinkParser extends AbstractElementParser {
 				}
 			}
 		}
-		catch (CharAccessorIndexOutOfBoundsException e) {
+		catch (ParsingIndexOutOfBoundsException e) {
 			ca.setIndex(caIndex);
 		}
 		

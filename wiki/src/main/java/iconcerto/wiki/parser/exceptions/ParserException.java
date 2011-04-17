@@ -1,8 +1,8 @@
-package iconcerto.wiki.parser;
+package iconcerto.wiki.parser.exceptions;
 
-public class ParserException extends Exception {
+public class ParserException extends RuntimeException {
 
-	private static final long serialVersionUID = 2356114783460840900L;
+	private static final long serialVersionUID = -2671036939235225317L;
 
 	public ParserException() {
 		super();

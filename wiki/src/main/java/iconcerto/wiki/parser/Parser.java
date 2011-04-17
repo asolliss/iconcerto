@@ -1,5 +1,7 @@
 package iconcerto.wiki.parser;
 
+import iconcerto.wiki.parser.exceptions.ParserException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class Parser implements ParseBundle {
 		visitors.remove(visitor);
 	}
 	
-	public void parse(String code) {
+	public void parse(String code) throws ParserException {
 		charAccessor = new CharAccessor(code);
 		parse();
 	}
@@ -31,7 +33,7 @@ public class Parser implements ParseBundle {
 		return charAccessor;
 	}
 
-	private void parse() {
+	private void parse() throws ParserException {
 		rootParser.parse(this);
 	}
 

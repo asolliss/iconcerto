@@ -2,7 +2,9 @@ package iconcerto.wiki.parser;
 
 import static org.junit.Assert.*;
 import iconcerto.wiki.parser.CharAccessor;
-import iconcerto.wiki.parser.ParserRuntimeException;
+import iconcerto.wiki.parser.exceptions.ConfigurationException;
+import iconcerto.wiki.parser.exceptions.ParserException;
+import iconcerto.wiki.parser.exceptions.ParsingException;
 
 import org.junit.*;
 
@@ -93,23 +95,23 @@ public class CharAccessorTest {
 		assertEquals(7, charAccessor.getIndex());
 	}
 	
-	@Test(expected=ParserRuntimeException.class)
+	@Test(expected=ParsingException.class)
 	public void testSearchWithNullArgument() {
 		charAccessor.lookFor(null);
 	}
 	
-	@Test(expected=ParserRuntimeException.class)
+	@Test(expected=ParsingException.class)
 	public void testSearchWithEmptyArgument() {
 		charAccessor.lookFor(new char[0]);
 	}
 	
-	@Test(expected=ParserRuntimeException.class)
+	@Test(expected=ParsingException.class)
 	public void testSearchWithNonexistentArgument() {
 		char chars[] = "strign1".toCharArray();
 		charAccessor.lookFor(chars);
 	}
 	
-	@Test(expected=ParserRuntimeException.class)
+	@Test(expected=ParsingException.class)
 	public void testSearchWithNonexistentSingleCharArgument() {
 		char chars[] = "z".toCharArray();
 		charAccessor.lookForAtSingleLine(chars);
@@ -123,23 +125,23 @@ public class CharAccessorTest {
 		assertEquals(11, charAccessor.getIndex());
 	}
 	
-	@Test(expected=ParserRuntimeException.class)
+	@Test(expected=ParserException.class)
 	public void testSingleLineSearchWithNullArgument() {
 		charAccessor.lookForAtSingleLine(null);
 	}
 	
-	@Test(expected=ParserRuntimeException.class)
+	@Test(expected=ParsingException.class)
 	public void testSingleLineSearchWithEmptyArgument() {
 		charAccessor.lookForAtSingleLine(new char[0]);
 	}
 	
-	@Test(expected=ParserRuntimeException.class)
+	@Test(expected=ParsingException.class)
 	public void testSingleLineSearchWithNonexistentArgument() {
 		char chars[] = "string1".toCharArray();
 		charAccessor.lookForAtSingleLine(chars);
 	}
 	
-	@Test(expected=ParserRuntimeException.class)
+	@Test(expected=ParsingException.class)
 	public void testSingleLineSearchWithNonexistentSingleCharArgument() {
 		char chars[] = "a".toCharArray();
 		charAccessor.lookForAtSingleLine(chars);
@@ -219,7 +221,7 @@ public class CharAccessorTest {
 		assertArrayEquals("str".toCharArray(), charAccessor.popStopSequence());
 	}
 	
-	@Test(expected=CharAccessorRuntimeException.class)
+	@Test(expected=ConfigurationException.class)
 	public void testPopOnEmptyStopSequence() {
 		charAccessor.popStopSequence();
 	}

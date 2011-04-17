@@ -7,6 +7,7 @@ import iconcerto.wiki.parser.Element;
 import iconcerto.wiki.parser.HeaderParser;
 import iconcerto.wiki.parser.Header;
 import iconcerto.wiki.parser.ParseBundle;
+import iconcerto.wiki.parser.exceptions.ParserException;
 
 import org.junit.*;
 
@@ -34,7 +35,7 @@ public class HeaderParserTest {
 		assertEquals(code.length()-1, element.getLastCharIndex());
 	}
 	
-	@Test(expected=ParserRuntimeException.class)
+	@Test(expected=ParserException.class)
 	public void testIncorrectHeaderTwoLines() {
 		String code = "= Header \n= Header =";
 		ParseBundle mockedParseBundle = mock(ParseBundle.class); 

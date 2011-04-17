@@ -1,5 +1,9 @@
 package iconcerto.wiki.parser;
 
+import iconcerto.wiki.parser.exceptions.ConfigurationException;
+import iconcerto.wiki.parser.exceptions.ParsingException;
+import iconcerto.wiki.parser.exceptions.ParsingIndexOutOfBoundsException;
+
 import java.util.Arrays;
 
 /**
@@ -54,8 +58,8 @@ public class CharAccessor {
 	 * Get the current char and increase the index
 	 * @return
 	 */
-	public char getChar() throws CharAccessorRuntimeException {
-		if (!hasNext()) throw new CharAccessorIndexOutOfBoundsException();
+	public char getChar() throws ParsingIndexOutOfBoundsException {
+		if (!hasNext()) throw new ParsingIndexOutOfBoundsException();
 		return characters[index++];
 	}
 	
@@ -67,8 +71,8 @@ public class CharAccessor {
 	 * Get the current char
 	 * @return
 	 */
-	public char getCharWithoutIncrement() throws CharAccessorRuntimeException {
-		if (!hasNext()) throw new CharAccessorIndexOutOfBoundsException();
+	public char getCharWithoutIncrement() throws ParsingIndexOutOfBoundsException {
+		if (!hasNext()) throw new ParsingIndexOutOfBoundsException();
 		return characters[index];
 	}
 	
@@ -106,18 +110,18 @@ public class CharAccessor {
 	/**
 	 * Look for a char sequence from a current position to the end of a document.
 	 * @param sequence
-	 * @throws ParserRuntimeException
+	 * @throws ParsingException
 	 */
-	public void lookFor(char[] sequence) throws ParserRuntimeException {
+	public void lookFor(char[] sequence) throws ParsingException {
 		lookFor(sequence, false);
 	}
 	
 	/**
 	 * Look for a char sequence from a current position to the end of a line.
 	 * @param sequence
-	 * @throws ParserRuntimeException
+	 * @throws ParsingException
 	 */
-	public void lookForAtSingleLine(char[] sequence) throws ParserRuntimeException {
+	public void lookForAtSingleLine(char[] sequence) throws ParsingException {
 		lookFor(sequence, true);
 	}
 	
@@ -127,9 +131,9 @@ public class CharAccessor {
 	 * else a position of the current index is not changed.
 	 * @param sequence
 	 * @return
-	 * @throws ParserRuntimeException
+	 * @throws ParsingException
 	 */
-	public boolean match(char[] sequence) throws ParserRuntimeException {
+	public boolean match(char[] sequence) throws ParsingException {
 		return Utils.match(sequence, this);
 	}
 	
@@ -146,11 +150,11 @@ public class CharAccessor {
 	/**
 	 * Push a stop sequence into the stop sequence stack
 	 * @param stopSequence
-	 * @throws ParserRuntimeException
+	 * @throws ConfigurationException
 	 */
-	public void pushStopSequence(char[] stopSequence) throws CharAccessorRuntimeException {
+	public void pushStopSequence(char[] stopSequence) throws ConfigurationException {
 		if (stopSequenceIndex + 1 >= STOP_SEQUENCE_STACK_SIZE) {
-			throw new CharAccessorRuntimeException("CharAccessors's stop sequence stack is full");
+			throw new ConfigurationException("CharAccessors's stop sequence stack is full");
 		}
 		stopSequenceStack[++stopSequenceIndex] = stopSequence;
 	}
@@ -158,11 +162,11 @@ public class CharAccessor {
 	/**
 	 * Pop a stop sequence from the stop sequence stack
 	 * @return
-	 * @throws ParserRuntimeException
+	 * @throws ConfigurationException
 	 */
-	public char[] popStopSequence() throws CharAccessorRuntimeException {
+	public char[] popStopSequence() throws ConfigurationException {
 		if (stopSequenceIndex < 0) {
-			throw new CharAccessorRuntimeException("CharAccessors's stop sequence stack already is empty");
+			throw new ConfigurationException("CharAccessors's stop sequence stack already is empty");
 		}
 		
 		char[] stopSequence = stopSequenceStack[stopSequenceIndex];
@@ -175,8 +179,9 @@ public class CharAccessor {
 	 * Check empty space from the current index to end of line.
 	 * If true then the current index is set at first char of new line.
 	 * @return true if empty
+	 * @throws ParsingException
 	 */
-	public boolean isEmptyTillEndOfLine() throws CharAccessorRuntimeException {
+	public boolean isEmptyTillEndOfLine() throws ParsingException {
 		boolean result = false;
 		
 		int index = getIndex();
@@ -235,9 +240,9 @@ public class CharAccessor {
 		return localStopSequenceIndex == stopSequenceLength;
 	}
 	
-	private void lookFor(char[] sequence, boolean single) throws ParserRuntimeException {
+	private void lookFor(char[] sequence, boolean single) throws ParsingException {
 		if (sequence == null || sequence.length < 1) {
-			throw new ParserRuntimeException("The char sequence is empty or null.");
+			throw new ParsingException("The char sequence is empty or null.");
 		} 
 		
 		boolean found = false;
@@ -251,7 +256,7 @@ public class CharAccessor {
 		}
 		
 		if (!found) {
-			throw new ParserRuntimeException("The char sequence is not found.");
+			throw new ParsingException("The char sequence is not found.");
 		}
 	}
 	

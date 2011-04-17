@@ -1,6 +1,7 @@
 package iconcerto.wiki.parser;
 
 import iconcerto.wiki.parser.Span.Type;
+import iconcerto.wiki.parser.exceptions.ParsingIndexOutOfBoundsException;
 
 public class SpanParser extends AbstractElementParser {
 
@@ -68,7 +69,7 @@ public class SpanParser extends AbstractElementParser {
 				span.setText(text.toString());
 			}
 		}
-		catch (CharAccessorIndexOutOfBoundsException e) {
+		catch (ParsingIndexOutOfBoundsException e) {
 			ca.setIndex(caIndex);
 		}
 		
