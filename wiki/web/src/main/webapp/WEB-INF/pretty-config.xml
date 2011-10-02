@@ -1,0 +1,13 @@
+<pretty-config xmlns="http://ocpsoft.com/prettyfaces/3.2.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ocpsoft.com/prettyfaces/3.2.1
+               http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.2.1.xsd">
+	<url-mapping id="home">
+		<pattern value="/" />		
+		<view-id value="/faces/index.xhtml" />
+	</url-mapping>
+	<url-mapping id="home2">
+		<pattern value="/name/#{testBean.name}/" />		
+		<view-id value="/faces/index.xhtml" />
+	</url-mapping>
+</pretty-config>

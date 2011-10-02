@@ -1,0 +1,56 @@
+ 
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>iconcerto</groupId>
+	<artifactId>commons-collections.osgi</artifactId>
+	<version>${dependencies.commons-collections.version}</version>
+	<packaging>bundle</packaging>
+	
+	<name>Commons-Collections.OSGi</name>
+	<description>
+	  OSGified version of Commons-Collections
+	</description>
+	
+	<parent>
+		<groupId>iconcerto</groupId>
+		<artifactId>dependencies</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>${version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<finalName>${groupId}.${artifactId}-${version}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>${org.apache.felix.maven-bundle-plugin.version}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-Name>${name} ${version}</Bundle-Name>
+						<Bundle-SymbolicName>${groupId}.${artifactId}</Bundle-SymbolicName>
+						<Export-Package>
+						org.apache.commons.collections.*;version=${project.version}
+						</Export-Package>
+						<Import-Package>							
+						*;resolution:=optional
+						</Import-Package>
+						<Embed-Dependency>
+						*;scope=provided;type=!pom;inline=true
+						</Embed-Dependency>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

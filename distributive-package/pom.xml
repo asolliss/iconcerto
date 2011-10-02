@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>iconcerto</groupId>
+	<artifactId>distributive-package</artifactId>
+	<packaging>pom</packaging>
+	
+	<name>iConcerto Distributive Package</name>
+	
+	<parent>
+		<groupId>iconcerto</groupId>
+		<artifactId>iconcerto</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>${org.apache.maven.plugins.maven-antrun-plugin.version}</version>
+				<inherited>false</inherited>
+				<executions>
+					<execution>
+						<id>packaging</id>
+						<phase>package</phase>	
+						<goals>
+							<goal>run</goal>
+						</goals>		
+						<configuration>
+							<target>
+								<mkdir dir="${basedir}/iconcerto/lib"/>
+								<copy todir="${basedir}/iconcerto" flatten="true" verbose="true">
+									<fileset dir="${basedir}/../" includes="**/target/*.jar" excludes="dependencies/**/target/*.jar" />
+								</copy>
+								<copy todir="${basedir}/iconcerto/lib" flatten="true" verbose="true">
+									<fileset dir="${basedir}/../" includes="dependencies/**/target/*.jar" />
+								</copy>
+							</target>
+						</configuration>												
+					</execution>
+					<execution>
+						<id>cleaning</id>
+						<phase>pre-clean</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>			
+						<configuration>
+							<target>
+								<delete dir="distribution"/>								
+							</target>
+						</configuration>												
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.ant</groupId>
+						<artifactId>ant-nodeps</artifactId>
+						<version>${org.apache.ant.ant-nodeps.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.sun</groupId>
+						<artifactId>tools</artifactId>
+						<version>1.6.0</version>
+						<scope>system</scope>
+						<systemPath>${java.home}/../lib/tools.jar</systemPath>
+					</dependency>					
+				</dependencies>
+			</plugin>			
+		</plugins>
+	</build>
+
+</project>

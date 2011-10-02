@@ -1,6 +1,7 @@
 
 #build files
 ^.*/target/.*$
+^.*\.jar$
 
 #eclipse files
 ^.*\.project.*$
