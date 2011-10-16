@@ -49,7 +49,7 @@
 						</goals>			
 						<configuration>
 							<target>
-								<delete dir="distribution"/>								
+								<delete dir="${basedir}/iconcerto"/>								
 							</target>
 						</configuration>												
 					</execution>

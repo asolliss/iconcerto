@@ -21,13 +21,13 @@
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib-nodep</artifactId>
-			<version>${version}</version>
+			<version>${project.version}</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	
 	<build>
-		<finalName>${groupId}.${artifactId}-${version}</finalName>
+		<finalName>${project.groupId}.${project.artifactId}-${project.version}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.felix</groupId>
@@ -36,10 +36,10 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Bundle-Name>${name} ${version}</Bundle-Name>
-						<Bundle-SymbolicName>${groupId}.${artifactId}</Bundle-SymbolicName>
+						<Bundle-Name>${project.name} ${project.version}</Bundle-Name>
+						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 						<Export-Package>
-						net.sf.cglib.*;version=${version}
+						net.sf.cglib.*;version=${project.version}
 						</Export-Package>
 						<Import-Package>							
 						*;resolution:=optional

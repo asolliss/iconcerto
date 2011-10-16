@@ -2,14 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>hibernate-data</artifactId>
+	<groupId>iconcerto.wiki.data</groupId>
+	<artifactId>hibernate</artifactId>
 	<packaging>bundle</packaging>
 
-	<name>iConcerto Hibernate Data</name>
+	<name>iConcerto Wiki Data Layer (Hibernate)</name>
 	
 	<parent>
 		<groupId>iconcerto</groupId>
-		<artifactId>iconcerto</artifactId>
+		<artifactId>wiki</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
@@ -24,14 +25,14 @@
 		
 		<dependency>
 			<groupId>iconcerto</groupId>
-			<artifactId>c3p0.osgi</artifactId>
-			<version>${dependencies.c3p0.version}</version>
+			<artifactId>hibernate-jpa-2.0-api.osgi</artifactId>
+			<version>${dependencies.hibernate-jpa-2.0-api.version}</version>
 			<scope>compile</scope>
-		</dependency>
+		</dependency>	
 	</dependencies>
 
 	<build>
-		<finalName>${groupId}.${artifactId}-${version}</finalName>
+		<finalName>${project.groupId}.${project.artifactId}-${project.version}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.felix</groupId>
@@ -40,18 +41,10 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Bundle-Name>${name} ${version}</Bundle-Name>
-						<Bundle-SymbolicName>${groupId}.${artifactId}</Bundle-SymbolicName>
-						<Export-Package>iconcerto.hibernate</Export-Package>
-						<Import-Package>
-						com.mchange.v2.c3p0,
-						javax.sql,
-						org.springframework.orm.hibernate3,
-						org.hibernate.cfg,
-						org.hibernate.dialect,
-						org.postgresql,
-						*
-						</Import-Package>
+						<Bundle-Name>${project.name} ${project.version}</Bundle-Name>
+						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+						<Export-Package>iconcerto.wiki.data</Export-Package>
+						<Import-Package>*</Import-Package>
 					</instructions>
 				</configuration>
 			</plugin>
@@ -66,5 +59,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

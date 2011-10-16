@@ -10,10 +10,10 @@
 	http://www.springframework.org/schema/osgi-compendium 
     http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium-1.2.xsd">	
 	
-	<osgi:service ref="globalDataSource" interface="javax.sql.DataSource" />
+	<osgi:service ref="dataSource" interface="javax.sql.DataSource" />
 	
-	<osgi:service ref="globalTransactionManager" auto-export="all-classes" />
+	<osgi:service ref="transactionManager" auto-export="all-classes" />
 	
-	<osgi:service ref="globalSessionFactory" auto-export="all-classes" />
+	<osgi:service ref="sessionFactory" auto-export="all-classes" />
 	
 </beans>

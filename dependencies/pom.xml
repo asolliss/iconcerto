@@ -17,10 +17,12 @@
 
 	<modules>
 		<module>antlr</module>
+		<module>javassist</module>
 		<module>cglib-nodep</module>
 		<module>commons-collections</module>
 		<module>dom4j</module>
 		<module>hibernate</module>
+		<module>hibernate-jpa-2.0-api</module>
 		<module>c3p0</module>
 		<module>postgresql-jdbc</module>
 		<module>mojarra-jsf</module>

@@ -6,7 +6,7 @@
 	<artifactId>api</artifactId>
 	<packaging>bundle</packaging>
 
-	<name>iConcerto Wiki Data API</name>
+	<name>iConcerto Wiki Data Layer API</name>
 	
 	<parent>
 		<groupId>iconcerto</groupId>
@@ -14,12 +14,13 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
+	
 	<dependencies>
 		
 	</dependencies>
 
 	<build>
-		<finalName>${groupId}.${artifactId}-${version}</finalName>
+		<finalName>${project.groupId}.${project.artifactId}-${project.version}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.felix</groupId>
@@ -28,8 +29,8 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Bundle-Name>${name} ${version}</Bundle-Name>
-						<Bundle-SymbolicName>${groupId}.${artifactId}</Bundle-SymbolicName>
+						<Bundle-Name>${project.name} ${project.version}</Bundle-Name>
+						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 						<Export-Package>iconcerto.wiki.data-api</Export-Package>
 						<Import-Package>*</Import-Package>
 					</instructions>

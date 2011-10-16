@@ -1,15 +1,14 @@
- 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>iconcerto</groupId>
-	<artifactId>c3p0.osgi</artifactId>
-	<version>${dependencies.c3p0.version}</version>
+	<artifactId>javassist.osgi</artifactId>
+	<version>${dependencies.javassist.version}</version>
 	<packaging>bundle</packaging>
 	
-	<name>c3p0.OSGi</name>
+	<name>javassist.OSGi</name>
 	<description>
-	  OSGified version of c3p0
+	  OSGified version of javassist
 	</description>
 	
 	<parent>
@@ -20,8 +19,8 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>c3p0</groupId>
-			<artifactId>c3p0</artifactId>
+			<groupId>javassist</groupId>
+			<artifactId>javassist</artifactId>
 			<version>${project.version}</version>
 			<scope>provided</scope>
 		</dependency>
@@ -40,7 +39,7 @@
 						<Bundle-Name>${project.name} ${project.version}</Bundle-Name>
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 						<Export-Package>
-						com.mchange.*;version=${project.version}
+						javassist.*;version=${project.version}
 						</Export-Package>
 						<Import-Package>							
 						*;resolution:=optional
