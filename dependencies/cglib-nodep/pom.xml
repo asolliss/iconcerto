@@ -39,14 +39,17 @@
 						<Bundle-Name>${project.name} ${project.version}</Bundle-Name>
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 						<Export-Package>
-						net.sf.cglib.*;version=${project.version}
+						net.sf.cglib.core;uses:="net.sf.cglib.asm",
+						net.sf.cglib.*;version=${project.version}						
 						</Export-Package>
-						<Import-Package>							
-						*;resolution:=optional
+						<Import-Package>
+						!net.sf.cglib.asm.util,
+						!org.apache.tools.ant.*,
+						*;resolution=optional						
 						</Import-Package>
-						<Embed-Dependency>
+						<!-- <Embed-Dependency>
 						*;scope=provided;type=!pom;inline=true
-						</Embed-Dependency>
+						</Embed-Dependency> -->
 					</instructions>
 				</configuration>
 			</plugin>

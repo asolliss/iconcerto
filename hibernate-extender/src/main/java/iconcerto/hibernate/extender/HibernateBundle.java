@@ -1,8 +1,12 @@
 package iconcerto.hibernate.extender;
 
+import java.util.Enumeration;
+
 import org.osgi.framework.Bundle;
 
 public class HibernateBundle implements ExtendedBundle {
+	
+	public static final String ENTITY_CLASSES_HEADER = "Entity-Classes";
 	
 	private Bundle bundle;
 	private Actions action;
@@ -29,9 +33,15 @@ public class HibernateBundle implements ExtendedBundle {
 		return state;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean isValidForExtending() {
-		// TODO Auto-generated method stub
+		Enumeration<String> headers = getBundle().getHeaders().keys();
+		while (headers.hasMoreElements()) {
+			if (ENTITY_CLASSES_HEADER.equals(headers.nextElement())) {
+				return true;
+			}
+		}
 		return false;
 	}
 	

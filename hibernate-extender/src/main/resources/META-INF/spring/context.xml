@@ -24,20 +24,15 @@
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager"
 		scope="singleton">
-		<property name="sessionFactory" ref="globalSessionFactory" />
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
 	<bean id="sessionFactory"
-		class="iconcerto.hibernate.support.HibernateSessionFactoryBean"
+		class="iconcerto.hibernate.support.HibernateSessionFactoryBean"				
 		scope="singleton">
-		<property name="dataSource" ref="globalDataSource" />
+		<property name="dataSource" ref="dataSource" />
 		<property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" />
 		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
-		<property name="packagesToScan">
-			<list>
-				<value>iconcerto.data.hibernate.entities</value>
-			</list>
-		</property>
 	</bean>
 
 </beans>

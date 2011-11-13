@@ -8,3 +8,6 @@
 ^.*\.settings.*$
 ^.*\.classpath.*$
 ^.*\.metadata.*$
+
+#equinox integration test files
+^.*\eclipse_config.*$

@@ -33,7 +33,7 @@
 							<target>
 								<mkdir dir="${basedir}/iconcerto/lib"/>
 								<copy todir="${basedir}/iconcerto" flatten="true" verbose="true">
-									<fileset dir="${basedir}/../" includes="**/target/*.jar" excludes="dependencies/**/target/*.jar" />
+									<fileset dir="${basedir}/../" includes="**/target/*.jar" excludes="dependencies/**/target/*.jar,integration-tests/**/target/*.jar" />
 								</copy>
 								<copy todir="${basedir}/iconcerto/lib" flatten="true" verbose="true">
 									<fileset dir="${basedir}/../" includes="dependencies/**/target/*.jar" />

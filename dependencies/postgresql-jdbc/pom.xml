@@ -40,6 +40,7 @@
 						<Bundle-Name>${project.name} ${project.version}</Bundle-Name>
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 						<Export-Package>
+						org.postgresql;version=${project.version},
 						org.postgresql.*;version=${project.version}
 						</Export-Package>
 						<Import-Package>							

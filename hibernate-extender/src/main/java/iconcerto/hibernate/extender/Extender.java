@@ -88,7 +88,7 @@ public class Extender implements SynchronousBundleListener {
 						action
 						);
 		
-		if (!extendedBundle.isValidForExtending()) return;
+		//if (!extendedBundle.isValidForExtending()) return;
 
 		while (true) {
 			try {

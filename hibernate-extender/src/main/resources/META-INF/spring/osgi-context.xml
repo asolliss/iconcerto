@@ -12,8 +12,12 @@
 	
 	<osgi:service ref="dataSource" interface="javax.sql.DataSource" />
 	
-	<osgi:service ref="transactionManager" auto-export="all-classes" />
+	<osgi:service ref="transactionManager">
+		<osgi:interfaces>
+			<value>org.springframework.transaction.support.ResourceTransactionManager</value>
+		</osgi:interfaces>		
+	</osgi:service>
 	
-	<osgi:service ref="sessionFactory" auto-export="all-classes" />
+	<osgi:service ref="sessionFactory" interface="org.hibernate.SessionFactory" />
 	
 </beans>

@@ -43,7 +43,8 @@
 						com.mchange.*;version=${project.version}
 						</Export-Package>
 						<Import-Package>							
-						*;resolution:=optional
+						*;resolution:=optional,
+						org.postgresql;resolution:=optional
 						</Import-Package>
 						<Embed-Dependency>
 						*;scope=provided;type=!pom;inline=true
