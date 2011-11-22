@@ -78,13 +78,16 @@
 					<instructions>
 						<Bundle-Name>${project.name} ${project.version}</Bundle-Name>
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
-						<Export-Package></Export-Package>
+						<Export-Package>
+						</Export-Package>
 						<Import-Package>
 							com.mchange.v2.c3p0,
 							com.mchange.v2.c3p0.impl,
 							org.springframework.orm.hibernate3,
 							org.springframework.transaction.support,
+							org.springframework.util,
 							org.hibernate.cfg,
+							org.hibernate.metadata,
 							*
 						</Import-Package>
 					</instructions>

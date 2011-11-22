@@ -10,9 +10,6 @@
 	http://www.springframework.org/schema/aop
 	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-	<context:annotation-config />
-	<context:component-scan base-package="iconcerto.hibernate" />
-
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		scope="singleton">
 		<property name="driverClass" value="org.postgresql.Driver" />
@@ -28,11 +25,41 @@
 	</bean>
 
 	<bean id="sessionFactory"
-		class="iconcerto.hibernate.support.HibernateSessionFactoryBean"				
+		class="iconcerto.hibernate.HibernateSessionFactoryBean"				
 		scope="singleton">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" />
 		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
+		<property name="classLoader" ref="extenderClassLoader" />
 	</bean>
-
+	
+	<bean id="extenderClassLoader"
+		class="iconcerto.extender.ExtenderClassLoader"
+		scope="singleton">
+		<property name="defaultClassLoader">
+			<bean class="org.springframework.util.ClassUtils" factory-method="getDefaultClassLoader"/>
+		</property>
+	</bean>
+	
+	<bean id="sessionFactoryCreator"
+		class="iconcerto.hibernate.extender.SessionFactoryCreator"
+		scope="singleton">
+		<property name="extenderClassLoader" ref="extenderClassLoader" />
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="extender"
+		class="iconcerto.extender.Extender"
+		scope="singleton"
+		init-method="initialize">
+		<property name="bundleContext" ref="bundleContext" />
+		<property name="executor">
+			<bean class="java.util.concurrent.Executors" factory-method="newSingleThreadExecutor" />
+		</property>
+		<property name="extendedBundleFactory">
+			<bean class="iconcerto.hibernate.extender.HibernateBundleFactory"/>
+		</property>
+		<property name="bundleConsumer" ref="sessionFactoryCreator" />
+	</bean>
+	
 </beans>

@@ -1,4 +1,5 @@
-package iconcerto.hibernate.extender;
+package iconcerto.extender;
+
 
 import java.util.concurrent.BlockingQueue;
 
@@ -7,8 +8,7 @@ public interface BundleConsumer extends Runnable {
 	void run();
 	
 	void initialize(
-			BlockingQueue<ExtendedBundle> newBundles,
-			String[] mappingPaths
+			BlockingQueue<ExtendedBundle> newBundles
 			);
 	
 }

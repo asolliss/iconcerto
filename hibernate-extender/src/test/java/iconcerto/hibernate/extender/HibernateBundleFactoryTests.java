@@ -2,8 +2,9 @@ package iconcerto.hibernate.extender;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-import iconcerto.hibernate.extender.ExtendedBundle.Actions;
-import iconcerto.hibernate.extender.ExtendedBundle.States;
+import iconcerto.extender.ExtendedBundle;
+import iconcerto.extender.ExtendedBundle.Actions;
+import iconcerto.extender.ExtendedBundle.States;
 
 import org.junit.Before;
 import org.junit.Test;

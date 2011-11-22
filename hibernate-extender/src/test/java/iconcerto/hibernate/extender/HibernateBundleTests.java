@@ -6,7 +6,7 @@ import static org.mockito.Mockito.*;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
-import iconcerto.hibernate.extender.ExtendedBundle.Actions;
+import iconcerto.extender.ExtendedBundle.Actions;
 
 import org.junit.Test;
 import org.osgi.framework.Bundle;

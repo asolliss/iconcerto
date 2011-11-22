@@ -1,6 +1,8 @@
 package iconcerto.hibernate.extender;
 
-import iconcerto.hibernate.extender.ExtendedBundle.Actions;
+import iconcerto.extender.ExtendedBundle;
+import iconcerto.extender.ExtendedBundleFactory;
+import iconcerto.extender.ExtendedBundle.Actions;
 
 import org.osgi.framework.Bundle;
 
