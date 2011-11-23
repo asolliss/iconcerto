@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>iconcerto.integration-tests-bundles</groupId>
-	<artifactId>hibernate-extended-test-bundle</artifactId>
+	<artifactId>bundle-with-entities</artifactId>
 	<packaging>bundle</packaging>
 
 	<name>iConcerto Hibernate Extended Test Bundle</name>

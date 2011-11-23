@@ -28,7 +28,7 @@ public class HibernateSessionFactoryBean extends AnnotationSessionFactoryBean {
 	private Set<Class<?>> annotatedClasses = new CopyOnWriteArraySet<Class<?>>();
 	
 	/**
-	 * Set a class loader with support of mapping classes 
+	 * Set a class loader with support of entity classes 
 	 * @param classLoader
 	 */
 	public void setClassLoader(ClassLoader classLoader) {
@@ -143,8 +143,10 @@ public class HibernateSessionFactoryBean extends AnnotationSessionFactoryBean {
 	}
 	
 	private void removeBundle(HibernateBundle bundle) throws Exception {
-		for (String entityClassName: bundle.getEntityClassNames()) {
-			annotatedClasses.remove(classLoader.loadClass(entityClassName));
+		for (Class<?> annotatedClass: annotatedClasses) {
+			if (bundle.getEntityClassNames().contains(annotatedClass.getCanonicalName())) {
+				annotatedClasses.remove(annotatedClass);
+			}
 		}
 		
 		setAnnotatedClasses(annotatedClasses.toArray(new Class[annotatedClasses.size()]));

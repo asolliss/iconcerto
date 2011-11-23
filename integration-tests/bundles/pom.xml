@@ -15,7 +15,7 @@
 	</parent>
 
 	<modules>
-		<module>hibernate-extended-test-bundle</module>
+		<module>bundle-with-entities</module>
 	</modules>
 	
 </project>

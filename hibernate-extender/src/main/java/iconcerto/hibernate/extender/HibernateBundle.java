@@ -2,11 +2,10 @@ package iconcerto.hibernate.extender;
 
 import iconcerto.extender.AbstractExtendedBundle;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 import org.osgi.framework.Bundle;
 
@@ -18,8 +17,8 @@ import org.osgi.framework.Bundle;
  */
 public class HibernateBundle extends AbstractExtendedBundle {
 	
-	private Set<String> classNames = new HashSet<String>();
-	private Collection<String> unmodifiableClassNames = Collections.unmodifiableCollection(classNames);
+	private Set<String> classNames = new CopyOnWriteArraySet<String>();
+	private Set<String> unmodifiableClassNames = Collections.unmodifiableSet(classNames);
 	
 	public HibernateBundle(Bundle bundle, Actions action) {
 		super(bundle, action);
@@ -42,22 +41,18 @@ public class HibernateBundle extends AbstractExtendedBundle {
 	@Override
 	public void extend() {
 		String rawClassNamesHeader = (String) getBundle().getHeaders().get(ENTITY_CLASSES_HEADER);
-		synchronized (classNames) {
-			for (String className: rawClassNamesHeader.split(",")) {
-				classNames.add(className);
-			}
+		for (String className: rawClassNamesHeader.split(",")) {
+			classNames.add(className);
 		}		
 	}
 	
-	public Collection<String> getEntityClassNames() {
+	public Set<String> getEntityClassNames() {
 		return unmodifiableClassNames;
 	}
 
 	@Override
 	protected boolean isValidNameForLoading(String name) {
-		synchronized (classNames) {
-			return classNames.contains(name);
-		}		
+		return classNames.contains(name);		
 	}
 	
 }

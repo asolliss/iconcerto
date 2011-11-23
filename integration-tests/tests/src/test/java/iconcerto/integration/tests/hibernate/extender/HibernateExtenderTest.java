@@ -23,15 +23,14 @@ public class HibernateExtenderTest extends AbstractIConcertoIntegrationTest {
 				};
 	}
 	
-	@SuppressWarnings({"rawtypes", "unchecked"})
 	public void testGetDataSource() {
-		ServiceReference dataSourceServiceReference =
-				bundleContext.getServiceReference(DataSource.class.getCanonicalName());
+		ServiceReference<DataSource> dataSourceServiceReference =
+				bundleContext.getServiceReference(DataSource.class);
 		assertNotNull(dataSourceServiceReference);
 		
 		try {			
 			DataSource dataSource =
-					(DataSource) bundleContext.getService(dataSourceServiceReference);			
+					bundleContext.getService(dataSourceServiceReference);			
 			
 			assertNotNull(dataSource);			
 		}
@@ -40,15 +39,14 @@ public class HibernateExtenderTest extends AbstractIConcertoIntegrationTest {
 		}		
 	}
 	
-	@SuppressWarnings({"rawtypes", "unchecked"})
 	public void testGetSessionFactory() {
-		ServiceReference sessionFactoryServiceReference =
-				bundleContext.getServiceReference(SessionFactory.class.getCanonicalName());
+		ServiceReference<SessionFactory> sessionFactoryServiceReference =
+				bundleContext.getServiceReference(SessionFactory.class);
 		assertNotNull(sessionFactoryServiceReference);
 		
 		try {			
 			SessionFactory sessionFactory =
-					(SessionFactory) bundleContext.getService(sessionFactoryServiceReference);
+					bundleContext.getService(sessionFactoryServiceReference);
 			
 			assertNotNull(sessionFactory);			
 		}
@@ -57,15 +55,14 @@ public class HibernateExtenderTest extends AbstractIConcertoIntegrationTest {
 		}		
 	}
 	
-	@SuppressWarnings({"rawtypes", "unchecked"})
 	public void testGetTransactionManager() {
-		ServiceReference transactionManagerServiceReference =
-				bundleContext.getServiceReference(ResourceTransactionManager.class.getCanonicalName());
+		ServiceReference<ResourceTransactionManager> transactionManagerServiceReference =
+				bundleContext.getServiceReference(ResourceTransactionManager.class);
 		assertNotNull(transactionManagerServiceReference);
 		
 		try {			
 			ResourceTransactionManager transactionManager =
-					(ResourceTransactionManager) bundleContext.getService(transactionManagerServiceReference);
+					bundleContext.getService(transactionManagerServiceReference);
 			
 			assertNotNull(transactionManager);			
 		}
@@ -74,22 +71,22 @@ public class HibernateExtenderTest extends AbstractIConcertoIntegrationTest {
 		}		
 	}
 	
-	@SuppressWarnings({"rawtypes", "unchecked"})
+
 	public void testStartingValidBundleForExtendingAfterStartingHibernateExtender() throws BundleException, IOException {
-		Bundle bundle = bundleContext.installBundle(
-				locateBundle("iconcerto.integration-tests-bundles,hibernate-extended-test-bundle,0.0.1-SNAPSHOT").getURI().toASCIIString()
+		Bundle bundleWithEntities = bundleContext.installBundle(
+				locateBundle("iconcerto.integration-tests-bundles,bundle-with-entities,0.0.1-SNAPSHOT").getURI().toASCIIString()
 				);				
 		
-		ServiceReference sessionFactoryServiceReference =
-				bundleContext.getServiceReference(SessionFactory.class.getCanonicalName());
+		ServiceReference<SessionFactory> sessionFactoryServiceReference =
+				bundleContext.getServiceReference(SessionFactory.class);
 
 		try {
 			SessionFactory sessionFactory =
-					(SessionFactory) bundleContext.getService(sessionFactoryServiceReference);
+					bundleContext.getService(sessionFactoryServiceReference);
 			
 			assertNotNull(sessionFactory);
 
-			bundle.start();
+			bundleWithEntities.start();
 			try {
 				try {
 					Thread.sleep(1000);
@@ -105,7 +102,7 @@ public class HibernateExtenderTest extends AbstractIConcertoIntegrationTest {
 
 			}
 			finally {
-				bundle.uninstall();
+				bundleWithEntities.uninstall();
 			}
 
 			//bundle with entities have uninstalled			
@@ -127,8 +124,79 @@ public class HibernateExtenderTest extends AbstractIConcertoIntegrationTest {
 		}
 	}
 	
-	public void testStartingValidBundleForExtendingBeforeStartingHibernateExtender() {
+	public void testStartingValidBundleForExtendingBeforeStartingHibernateExtender() throws BundleException, IOException {
+		Bundle hibernateExtenderBundle = null;
+		for (Bundle bundle: bundleContext.getBundles()) {
+			if (bundle.getSymbolicName().contains("hibernate-extender")) {
+				hibernateExtenderBundle = bundle;
+				break;
+			}
+		}
+		assertNotNull(hibernateExtenderBundle);
 		
+		hibernateExtenderBundle.stop();
+		
+		Bundle bundleWithEntities = bundleContext.installBundle(
+				locateBundle("iconcerto.integration-tests-bundles,bundle-with-entities,0.0.1-SNAPSHOT").getURI().toASCIIString()
+				);				
+		
+		ServiceReference<SessionFactory> sessionFactoryServiceReference = null;
+		SessionFactory sessionFactory = null;
+		
+		try {			
+			bundleWithEntities.start();
+			try {
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					assertNull(e);
+				}
+				
+				hibernateExtenderBundle.start();
+				
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					assertNull(e);
+				}
+				sessionFactoryServiceReference = 
+						bundleContext.getServiceReference(SessionFactory.class);
+
+				sessionFactory =
+						bundleContext.getService(sessionFactoryServiceReference);
+				
+				assertNotNull(sessionFactory);
+
+				ClassMetadata testEntity1ClassMetadata = sessionFactory.getClassMetadata("iconcerto.entities.TestEntity1");			
+				assertNotNull(testEntity1ClassMetadata);
+
+				ClassMetadata testEntity2ClassMetadata = sessionFactory.getClassMetadata("iconcerto.entities.TestEntity2");			
+				assertNotNull(testEntity2ClassMetadata);
+
+			}
+			finally {
+				bundleWithEntities.uninstall();
+			}
+
+			//bundle with entities have uninstalled			
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				assertNull(e);
+			}						
+
+			ClassMetadata testEntity1ClassMetadata = sessionFactory.getClassMetadata("iconcerto.entities.TestEntity1");			
+			assertNull(testEntity1ClassMetadata);
+
+			ClassMetadata testEntity2ClassMetadata = sessionFactory.getClassMetadata("iconcerto.entities.TestEntity2");			
+			assertNull(testEntity2ClassMetadata);			
+			
+		}
+		finally {
+			if (sessionFactoryServiceReference != null) {
+				bundleContext.ungetService(sessionFactoryServiceReference);
+			}
+		}
 	}
 
 	@Override
