@@ -12,10 +12,10 @@
 
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		scope="singleton">
-		<!-- <property name="driverClass" value="org.postgresql.Driver" />
+		<property name="driverClass" value="org.postgresql.Driver" />
 		<property name="jdbcUrl" value="jdbc:postgresql://dev-server.local/test" />
 		<property name="user" value="developer" />
-		<property name="password" value="developer00" /> -->
+		<property name="password" value="developer00" />
 	</bean>
 
 	<bean id="transactionManager"
@@ -28,8 +28,7 @@
 		class="iconcerto.hibernate.HibernateSessionFactoryBean"				
 		scope="singleton">
 		<property name="dataSource" ref="dataSource" />
-		<property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" />
-		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
+		<property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" />		
 		<property name="classLoader" ref="extenderClassLoader" />
 	</bean>
 	

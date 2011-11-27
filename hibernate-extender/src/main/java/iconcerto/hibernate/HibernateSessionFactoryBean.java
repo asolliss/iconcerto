@@ -33,7 +33,7 @@ public class HibernateSessionFactoryBean extends AnnotationSessionFactoryBean {
 	 */
 	public void setClassLoader(ClassLoader classLoader) {
 		super.setBeanClassLoader(classLoader);
-		this.classLoader = classLoader; 
+		this.classLoader = classLoader;		
 	}
 
 	@Override
@@ -42,9 +42,16 @@ public class HibernateSessionFactoryBean extends AnnotationSessionFactoryBean {
 	}
 
 	@Override
-	public void afterPropertiesSet() throws Exception {		
+	public void afterPropertiesSet() throws Exception {
+		//Set default class loader for javassist Proxy Factory
+		//classloader is our custom ClassLoader
+		ProxyFactory.classLoaderProvider = new ClassLoaderProvider() {
+			public ClassLoader get(ProxyFactory pf) {
+				return HibernateSessionFactoryBean.this.classLoader;
+			}
+		};
+		
 		super.afterPropertiesSet();
-		//initialization
 		sessionFactoryProxy = createSessionFactoryProxy();
 	}
 
@@ -56,7 +63,7 @@ public class HibernateSessionFactoryBean extends AnnotationSessionFactoryBean {
 	protected void recreateSessionFactory() throws Exception {
 		sessionFactoryAccessLock.tryLock(3000, TimeUnit.MILLISECONDS);
 		
-		try {
+		try {			
 			super.destroy();		
 			super.afterPropertiesSet();		
 		}
@@ -66,70 +73,58 @@ public class HibernateSessionFactoryBean extends AnnotationSessionFactoryBean {
 	}
 	
 	protected SessionFactory createSessionFactoryProxy() throws InstantiationException, IllegalAccessException, InterruptedException {
-		ClassLoaderProvider defaultClassLoaderProvider = ProxyFactory.classLoaderProvider; 
-		ProxyFactory.classLoaderProvider = new ClassLoaderProvider() {
-			public ClassLoader get(ProxyFactory pf) {
-				return classLoader;
+
+		ProxyFactory sessionFactoryProxyFactory = new ProxyFactory();
+		sessionFactoryProxyFactory.setInterfaces(new Class[] {SessionFactory.class, Extendable.class});
+
+		sessionFactoryProxyFactory.setFilter(new MethodFilter() {
+			public boolean isHandled(Method m) {
+				// ignore finalize()
+				return !m.getName().equals("finalize");				
+			}
+		});		
+
+		Class<?> sessionFactoryProxyClass = sessionFactoryProxyFactory.createClass();
+		MethodHandler mi = new MethodHandler() {
+			public Object invoke(Object self, Method thisMethod, Method proceed,
+					Object[] args) throws Throwable {
+				Object result = null;
+
+				ClassLoader defaultClassLoader = Thread.currentThread().getContextClassLoader();
+				Thread.currentThread().setContextClassLoader(classLoader);
+				try {
+					//It's not a efficient implementation of method invocations
+					// It must be re-implemented in the future
+					if (thisMethod.getName().contains("addBundle")) {
+						addBundle((HibernateBundle) args[0]);
+					}
+					else if (thisMethod.getName().contains("removeBundle")) {
+						removeBundle((HibernateBundle) args[0]);						
+					}
+					else {
+						sessionFactoryAccessLock.tryLock(3000, TimeUnit.MILLISECONDS);
+
+						try {
+							// execute the original method of SessionFactory
+							result = thisMethod.invoke(getSessionFactory(), args);
+						}
+						finally {
+							sessionFactoryAccessLock.unlock();
+						}
+					}
+				}
+				finally {
+					Thread.currentThread().setContextClassLoader(defaultClassLoader);
+				}
+
+				return result;
 			}
 		};
 
-		SessionFactory sessionFactory = null; 
-          
-        try {
-			ProxyFactory sessionFactoryProxyFactory = new ProxyFactory();
-			sessionFactoryProxyFactory.setInterfaces(new Class[] {SessionFactory.class, Extendable.class});
-			
-			sessionFactoryProxyFactory.setFilter(new MethodFilter() {
-				public boolean isHandled(Method m) {
-					// ignore finalize()
-					return !m.getName().equals("finalize");				
-				}
-			});		
-			
-			Class<?> sessionFactoryProxyClass = sessionFactoryProxyFactory.createClass();
-			MethodHandler mi = new MethodHandler() {
-				public Object invoke(Object self, Method thisMethod, Method proceed,
-						Object[] args) throws Throwable {
-					Object result = null;
-					
-					ClassLoader defaultClassLoader = Thread.currentThread().getContextClassLoader();
-					Thread.currentThread().setContextClassLoader(classLoader);
-					try {
-						//It's not a efficient implementation of method invocations
-						// It must be re-implemented in the future
-						if (thisMethod.getName().contains("addBundle")) {
-							addBundle((HibernateBundle) args[0]);
-						}
-						else if (thisMethod.getName().contains("removeBundle")) {
-							removeBundle((HibernateBundle) args[0]);						
-						}
-						else {
-							sessionFactoryAccessLock.tryLock(3000, TimeUnit.MILLISECONDS);
-											
-							try {
-								// execute the original method of SessionFactory
-								result = thisMethod.invoke(getSessionFactory(), args);
-							}
-							finally {
-								sessionFactoryAccessLock.unlock();
-							}
-						}
-					}
-					finally {
-						Thread.currentThread().setContextClassLoader(defaultClassLoader);
-					}
-					
-					return result;
-				}
-			};
-			
-			sessionFactory = (SessionFactory)sessionFactoryProxyClass.newInstance();
-			((ProxyObject)sessionFactory).setHandler(mi);
-        }
-        finally {		
-        	ProxyFactory.classLoaderProvider = defaultClassLoaderProvider;
-        }
-		
+		SessionFactory sessionFactory = (SessionFactory)sessionFactoryProxyClass.newInstance();
+		((ProxyObject)sessionFactory).setHandler(mi);
+
+
 		return sessionFactory;
 	}
 	
