@@ -1,10 +1,11 @@
 package iconcerto.hibernate.extender;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.mockito.Mockito.mock;
 import iconcerto.extender.ExtendedBundle;
 import iconcerto.extender.ExtendedBundle.Actions;
-import iconcerto.extender.ExtendedBundle.States;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,8 +32,6 @@ public class HibernateBundleFactoryTests {
 		assertNotNull(extendedBundle);
 		
 		assertEquals(Actions.REMOVING, extendedBundle.getAction());
-		
-		assertEquals(States.UNATTACHED, extendedBundle.getState());
 		
 		assertNotNull(extendedBundle.getBundle());
 		assertSame(mockedBundle, extendedBundle.getBundle());

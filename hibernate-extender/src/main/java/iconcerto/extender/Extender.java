@@ -12,7 +12,7 @@ import org.osgi.framework.BundleEvent;
 import org.osgi.framework.SynchronousBundleListener;
 
 /**
- * This class contains implementation of extender pattern.
+ * This class contains the implementation of the extender pattern.
  * It watches all bundle events. 
  * If a bundle is valid for extending then the extender will wrap it into ExtendedBundle 
  * and will pass bundle to the BlockingQueue.

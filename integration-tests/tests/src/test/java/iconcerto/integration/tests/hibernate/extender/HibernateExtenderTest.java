@@ -18,7 +18,7 @@ public class HibernateExtenderTest extends AbstractIConcertoIntegrationTest {
 	@Override
 	protected String[] getTestBundlesNames() {
 		return new String[]
-				{					
+				{
 					"iconcerto,hibernate-extender,0.0.1-SNAPSHOT"					
 				};
 	}

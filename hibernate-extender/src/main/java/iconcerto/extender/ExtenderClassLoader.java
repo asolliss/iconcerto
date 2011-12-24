@@ -11,7 +11,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 /**
  * <b>Thread-safe
  * 
- * This class implement ClassLoader with special behavior.
+ * This class implements ClassLoader with special behavior.
  * 
  * @author Ivan Pogudin <i.a.pogudin@gmail.com>
  *

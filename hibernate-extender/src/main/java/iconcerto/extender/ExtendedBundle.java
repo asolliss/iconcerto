@@ -15,7 +15,6 @@ import org.osgi.framework.Bundle;
 public interface ExtendedBundle {
 	
 	public static enum Actions {ADDING, REMOVING, COMPLETED};
-	public static enum States {ATTACHED, UNATTACHED};
 	
 	/**
 	 * @return a native osgi bundle that can be extended
@@ -23,8 +22,6 @@ public interface ExtendedBundle {
 	Bundle getBundle();
 	
 	Actions getAction();
-	
-	States getState();
 	
 	/**
 	 * This method checks if a bundle can be extended.

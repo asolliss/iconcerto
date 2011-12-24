@@ -16,12 +16,10 @@ public abstract class AbstractExtendedBundle implements ExtendedBundle {
 
 	private final Bundle bundle;
 	private volatile Actions action;
-	private volatile States state;
 	
 	public AbstractExtendedBundle(Bundle bundle, Actions action) {
 		this.bundle = bundle;
 		this.action = action;
-		this.state = States.UNATTACHED;
 	}
 
 	@Override
@@ -51,11 +49,6 @@ public abstract class AbstractExtendedBundle implements ExtendedBundle {
 	@Override
 	public Actions getAction() {
 		return action;
-	}
-
-	@Override
-	public States getState() {
-		return state;
 	}
 
 	@Override
