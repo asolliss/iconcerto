@@ -1,0 +1,92 @@
+ 
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>iconcerto</groupId>
+	<artifactId>hibernate.osgi</artifactId>
+	<version>${lib.hibernate.version}</version>
+	<packaging>bundle</packaging>
+	
+	<name>Hibernate.OSGi</name>
+	<description>
+	  OSGified version of Hibernate
+	</description>
+	
+	<parent>
+		<groupId>iconcerto</groupId>
+		<artifactId>lib</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<finalName>${project.groupId}.${project.artifactId}-${project.version}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>${org.apache.felix.maven-bundle-plugin.version}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-Name>${project.name} ${project.version}</Bundle-Name>
+						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+						<Export-Package>
+						org.hibernate;version=${project.version},
+						org.hibernate.*;version=${project.version}
+						</Export-Package>
+						<Import-Package>							
+						antlr;version="2.7.6",
+						antlr.collections;version="2.7.6",
+						antlr.collections.impl;version="2.7.6",
+						javassist;version="3.12.0.GA",
+						javassist.bytecode;version="3.12.0.GA",
+						javassist.util.proxy;version="3.12.0.GA",
+						javax.naming,
+						javax.naming.event,
+						javax.naming.spi,
+						javax.persistence,
+						javax.security.auth;resolution:=optional,
+						javax.security.jacc;resolution:=optional,
+						javax.sql,
+						javax.transaction;version="1.1.0",
+						javax.transaction.xa;version="1.1.0",
+						javax.validation;resolution:=optional,
+						javax.validation.constraints;resolution:=optional,
+						javax.validation.groups;resolution:=optional,
+						javax.validation.metadata;resolution:=optional,
+						net.sf.cglib.beans;resolution:=optional,
+						net.sf.cglib.core;resolution:=optional,
+						net.sf.cglib.proxy;resolution:=optional,
+						net.sf.cglib.reflect;resolution:=optional,
+						net.sf.cglib.transform;resolution:=optional,
+						net.sf.cglib.transform.impl;resolution:=optional,
+						org.apache.commons.collections;version="3.1",
+						org.apache.commons.collections.map;version="3.1",
+						org.apache.tools.ant;resolution:=optional,
+						org.apache.tools.ant.taskdefs;resolution:=optional,
+						org.apache.tools.ant.types;resolution:=optional,
+						org.dom4j;version="1.6.1",
+						org.dom4j.io;version="1.6.1",
+						org.objectweb.asm;version="2.2.3",
+						org.slf4j;version="[1.6,2)",
+						org.w3c.dom,
+						org.xml.sax						
+						</Import-Package>
+						<!-- <Embed-Dependency>
+						*;scope=provided;type=!pom;inline=true
+						</Embed-Dependency> -->
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

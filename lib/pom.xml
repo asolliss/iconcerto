@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>iconcerto</groupId>
+	<artifactId>lib</artifactId>
+	<packaging>pom</packaging>
+	
+	<name>iConcerto's Lib</name>
+	
+	<parent>
+		<groupId>iconcerto</groupId>
+		<artifactId>iconcerto</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+
+	<modules>
+		<module>antlr</module>
+		<module>javassist</module>
+		<module>cglib-nodep</module>
+		<module>commons-collections</module>
+		<module>dom4j</module>
+		<module>hibernate</module>
+		<module>hibernate-jpa-2.0-api</module>
+		<module>c3p0</module>
+		<module>postgresql-jdbc</module>
+		<module>mojarra-jsf</module>
+		<module>prettyfaces-jsf2</module>
+	</modules>
+	
+	<repositories>
+		<repository>
+			<id>repository.jboss.org-public</id>
+			<name>JBoss repository</name>
+			<url>https://repository.jboss.org/nexus/content/groups/public</url>
+		</repository>
+		<repository>
+			<id>java.net</id>
+			<name>java.net</name>
+			<url>http://download.java.net/maven/2/</url>
+		</repository>
+		<repository>
+			<id>ocpsoft.com</id>
+			<name>ocpsoft.com</name>
+			<url>http://ocpsoft.com/repository/</url>
+		</repository>
+	</repositories>
+
+</project>

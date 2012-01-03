@@ -33,7 +33,7 @@
 		<dependency>
 			<groupId>org.springframework.osgi</groupId>
 			<artifactId>spring-osgi-core</artifactId>
-			<version>${dependencies.springframework.osgi.version}</version>
+			<version>${lib.springframework.osgi.version}</version>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
@@ -61,25 +61,25 @@
 		<dependency>
 			<groupId>org.springframework.osgi</groupId>
 			<artifactId>spring-osgi-extender</artifactId>
-			<version>${dependencies.springframework.osgi.version}</version>
+			<version>${lib.springframework.osgi.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.osgi</groupId>
 			<artifactId>spring-osgi-io</artifactId>
-			<version>${dependencies.springframework.osgi.version}</version>
+			<version>${lib.springframework.osgi.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.osgi</groupId>
 			<artifactId>spring-osgi-annotation</artifactId>
-			<version>${dependencies.springframework.osgi.version}</version>
+			<version>${lib.springframework.osgi.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.osgi</groupId>
 			<artifactId>spring-osgi-test</artifactId>
-			<version>${dependencies.springframework.osgi.version}</version>
+			<version>${lib.springframework.osgi.version}</version>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
@@ -99,111 +99,111 @@
 		<dependency>
 			<groupId>org.objectweb.asm</groupId>
 			<artifactId>com.springsource.org.objectweb.asm</artifactId>
-			<version>${dependencies.com.springsource.org.objectweb.asm}</version>
+			<version>${lib.com.springsource.org.objectweb.asm}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.junit</groupId>
 			<artifactId>com.springsource.junit</artifactId>
-			<version>${dependencies.com.springsource.junit3}</version>
+			<version>${lib.com.springsource.junit3}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
-			<version>${dependencies.springframework.version}</version>
+			<version>${lib.springframework.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-asm</artifactId>
-			<version>${dependencies.springframework.version}</version>
+			<version>${lib.springframework.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>${dependencies.springframework.version}</version>
+			<version>${lib.springframework.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>${dependencies.springframework.version}</version>
+			<version>${lib.springframework.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-expression</artifactId>
-			<version>${dependencies.springframework.version}</version>
+			<version>${lib.springframework.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			<version>${dependencies.springframework.version}</version>
+			<version>${lib.springframework.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
-			<version>${dependencies.springframework.version}</version>
+			<version>${lib.springframework.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			<version>${dependencies.springframework.version}</version>
+			<version>${lib.springframework.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>${dependencies.springframework.version}</version>
+			<version>${lib.springframework.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.aopalliance</groupId>
 			<artifactId>com.springsource.org.aopalliance</artifactId>
-			<version>${dependencies.com.springsource.org.aopalliance}</version>
+			<version>${lib.com.springsource.org.aopalliance}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.log4j</groupId>
 			<artifactId>com.springsource.org.apache.log4j</artifactId>
-			<version>${dependencies.com.springsource.org.apache.log4j}</version>
+			<version>${lib.com.springsource.org.apache.log4j}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>com.springsource.slf4j.api</artifactId>
-			<version>${dependencies.com.springsource.slf4j}</version>
+			<version>${lib.com.springsource.slf4j}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>com.springsource.slf4j.log4j</artifactId>
-			<version>${dependencies.com.springsource.slf4j}</version>
+			<version>${lib.com.springsource.slf4j}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>com.springsource.slf4j.org.apache.commons.logging</artifactId>
-			<version>${dependencies.com.springsource.slf4j}</version>
+			<version>${lib.com.springsource.slf4j}</version>
 		</dependency>
 		<dependency>
     		<groupId>javax.transaction</groupId>
     		<artifactId>com.springsource.javax.transaction</artifactId>
-    		<version>${dependencies.com.springsource.javax.transaction}</version>
+    		<version>${lib.com.springsource.javax.transaction}</version>
     		<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.osgi</groupId>
 			<artifactId>org.eclipse.osgi</artifactId>
-			<version>${dependencies.org.eclipse.osgi}</version>
+			<version>${lib.org.eclipse.osgi}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
     		<groupId>org.eclipse.osgi</groupId>
     		<artifactId>org.eclipse.equinox.cm</artifactId>
-    		<version>${dependencies.org.eclipse.equinox.cm}</version>
+    		<version>${lib.org.eclipse.equinox.cm}</version>
     		<scope>test</scope>
     		<exclusions>
 				<exclusion>
@@ -215,19 +215,19 @@
 		<dependency>
     		<groupId>org.eclipse.osgi</groupId>
     		<artifactId>org.eclipse.osgi.services</artifactId>
-    		<version>${dependencies.org.eclipse.osgi.services}</version>
-    		<scope>test</scope>
-		</dependency>
-		<dependency>
-    		<groupId>org.hsqldb</groupId>
-    		<artifactId>hsqldb</artifactId>
-    		<version>${dependencies.org.hsqldb.version}</version>
+    		<version>${lib.org.eclipse.osgi.services}</version>
     		<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>iconcerto</groupId>
+			<artifactId>c3p0.osgi</artifactId>
+			<version>${lib.c3p0.version}</version>
+			<scope>test</scope>
+		</dependency>		
+		<dependency>
+			<groupId>iconcerto</groupId>
 			<artifactId>hibernate.osgi</artifactId>
-			<version>${dependencies.hibernate.version}</version>
+			<version>${lib.hibernate.version}</version>
 			<scope>test</scope>
 		</dependency>		
 		<dependency>
@@ -236,6 +236,24 @@
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>iconcerto.integration-tests-bundles</groupId>
+			<artifactId>bundle-with-entities</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>iconcerto.integration-tests-bundles</groupId>
+			<artifactId>database-adapters</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>iconcerto.integration-tests-bundles</groupId>
+			<artifactId>valid-dao-bundle</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>test</scope>
+		</dependency>		
 	</dependencies>
 
 	<build>
@@ -253,11 +271,14 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.10</version>
+				<configuration>
+					<forkMode>always</forkMode>
+				</configuration>
 				<dependencies>
 					<dependency>
 						<groupId>org.apache.maven.surefire</groupId>
 						<artifactId>surefire-junit3</artifactId>
-						<version>2.10</version>
+						<version>2.10</version>						
 					</dependency>
 				</dependencies>
 			</plugin>

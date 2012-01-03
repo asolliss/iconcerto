@@ -19,14 +19,14 @@
 		<dependency>
 			<groupId>iconcerto</groupId>
 			<artifactId>hibernate.osgi</artifactId>
-			<version>${dependencies.hibernate.version}</version>
+			<version>${lib.hibernate.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		
 		<dependency>
 			<groupId>iconcerto</groupId>
 			<artifactId>hibernate-jpa-2.0-api.osgi</artifactId>
-			<version>${dependencies.hibernate-jpa-2.0-api.version}</version>
+			<version>${lib.hibernate-jpa-2.0-api.version}</version>
 			<scope>compile</scope>
 		</dependency>	
 	</dependencies>

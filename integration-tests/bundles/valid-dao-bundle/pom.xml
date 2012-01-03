@@ -2,15 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>iconcerto.wiki.data</groupId>
-	<artifactId>hibernate</artifactId>
+	<groupId>iconcerto.integration-tests-bundles</groupId>
+	<artifactId>valid-dao-bundle</artifactId>
 	<packaging>bundle</packaging>
 
-	<name>iConcerto Wiki Data Layer (Hibernate)</name>
+	<name>iConcerto Hibernate Extended Test Bundle</name>
 	
 	<parent>
 		<groupId>iconcerto</groupId>
-		<artifactId>wiki</artifactId>
+		<artifactId>integration-tests-bundles</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
@@ -28,7 +28,14 @@
 			<artifactId>hibernate-jpa-2.0-api.osgi</artifactId>
 			<version>${lib.hibernate-jpa-2.0-api.version}</version>
 			<scope>compile</scope>
-		</dependency>	
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${lib.springframework.version}</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -43,8 +50,23 @@
 					<instructions>
 						<Bundle-Name>${project.name} ${project.version}</Bundle-Name>
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
-						<Export-Package>iconcerto.wiki.data</Export-Package>
-						<Import-Package>*</Import-Package>
+						<Export-Package>
+							iconcerto.entities,
+							iconcerto.service.api
+						</Export-Package>
+						<Import-Package>
+							org.springframework.transaction,
+							org.springframework.aop,
+							org.springframework.aop.framework,
+							org.aopalliance.aop,
+							javax.sql,
+							org.hibernate,
+							*
+						</Import-Package>						
+						<Entity-Classes>
+							iconcerto.entities.ParentEntity,
+							iconcerto.entities.ChildEntity
+						</Entity-Classes>
 					</instructions>
 				</configuration>
 			</plugin>

@@ -19,35 +19,35 @@
 		<dependency>
 			<groupId>iconcerto</groupId>
 			<artifactId>hibernate.osgi</artifactId>
-			<version>${dependencies.hibernate.version}</version>
+			<version>${lib.hibernate.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		
 		<dependency>
 			<groupId>iconcerto</groupId>
 			<artifactId>javassist.osgi</artifactId>
-			<version>${dependencies.javassist.version}</version>
+			<version>${lib.javassist.version}</version>
 			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>iconcerto</groupId>
 			<artifactId>c3p0.osgi</artifactId>
-			<version>${dependencies.c3p0.version}</version>
+			<version>${lib.c3p0.version}</version>
 			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			<version>${dependencies.springframework.version}</version>
+			<version>${lib.springframework.version}</version>
 			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.osgi</groupId>
 			<artifactId>org.osgi.core</artifactId>
-			<version>${dependencies.org.osgi.core.version}</version>
+			<version>${lib.org.osgi.core.version}</version>
 			<scope>compile</scope>
 		</dependency>
 

@@ -1,0 +1,57 @@
+ 
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>iconcerto</groupId>
+	<artifactId>postgresql-jdbc.osgi</artifactId>
+	<version>${lib.postgresql-jdbc.version}</version>
+	<packaging>bundle</packaging>
+	
+	<name>PostgreSQL-JDBC.OSGi</name>
+	<description>
+	  OSGified version of PostgreSQL JDBC
+	</description>
+	
+	<parent>
+		<groupId>iconcerto</groupId>
+		<artifactId>lib</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	
+	<dependencies>
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.0-801.jdbc4</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<finalName>${project.groupId}.${project.artifactId}-${project.version}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>${org.apache.felix.maven-bundle-plugin.version}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-Name>${project.name} ${project.version}</Bundle-Name>
+						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+						<Export-Package>
+						org.postgresql;version=${project.version},
+						org.postgresql.*;version=${project.version}
+						</Export-Package>
+						<Import-Package>							
+						*
+						</Import-Package>
+						<Embed-Dependency>
+						*;scope=provided;type=!pom;inline=true
+						</Embed-Dependency>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

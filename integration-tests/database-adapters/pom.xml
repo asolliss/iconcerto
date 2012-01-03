@@ -2,33 +2,26 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>iconcerto.wiki.data</groupId>
-	<artifactId>hibernate</artifactId>
+	<groupId>iconcerto.integration-tests-bundles</groupId>
+	<artifactId>database-adapters</artifactId>
 	<packaging>bundle</packaging>
 
-	<name>iConcerto Wiki Data Layer (Hibernate)</name>
+	<name>iConcerto Hibernate Extended Test Bundle</name>
 	
 	<parent>
 		<groupId>iconcerto</groupId>
-		<artifactId>wiki</artifactId>
+		<artifactId>integration-tests-module</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
 	
 	<dependencies>
 		<dependency>
-			<groupId>iconcerto</groupId>
-			<artifactId>hibernate.osgi</artifactId>
-			<version>${lib.hibernate.version}</version>
-			<scope>compile</scope>
+    		<groupId>org.hsqldb</groupId>
+    		<artifactId>hsqldb</artifactId>
+    		<version>${lib.org.hsqldb.version}</version>
+    		<scope>test</scope>
 		</dependency>
-		
-		<dependency>
-			<groupId>iconcerto</groupId>
-			<artifactId>hibernate-jpa-2.0-api.osgi</artifactId>
-			<version>${lib.hibernate-jpa-2.0-api.version}</version>
-			<scope>compile</scope>
-		</dependency>	
 	</dependencies>
 
 	<build>
@@ -43,8 +36,13 @@
 					<instructions>
 						<Bundle-Name>${project.name} ${project.version}</Bundle-Name>
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
-						<Export-Package>iconcerto.wiki.data</Export-Package>
-						<Import-Package>*</Import-Package>
+						<Export-Package>
+							iconcerto.integration.tests.database.api
+						</Export-Package>
+						<Import-Package>
+							org.hsqldb.jdbc,
+							*
+						</Import-Package>
 					</instructions>
 				</configuration>
 			</plugin>

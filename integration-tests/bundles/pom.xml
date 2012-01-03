@@ -16,6 +16,7 @@
 
 	<modules>
 		<module>bundle-with-entities</module>
+		<module>valid-dao-bundle</module>
 	</modules>
 	
 </project>

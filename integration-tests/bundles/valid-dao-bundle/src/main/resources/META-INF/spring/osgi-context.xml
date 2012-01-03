@@ -10,10 +10,25 @@
 	http://www.springframework.org/schema/osgi-compendium 
     http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium-1.2.xsd">	
 	
-	<osgi:service ref="dataSource" interface="javax.sql.DataSource" />
+	<osgi:reference 
+		id="dataSource" 
+		interface="javax.sql.DataSource"
+		timeout="3000"/>
 	
-	<osgi:service ref="transactionManager" interface="org.springframework.transaction.PlatformTransactionManager"/>		
+	<osgi:reference 
+		id="transactionManager" 
+		interface="org.springframework.transaction.PlatformTransactionManager" 
+		timeout="3000"/>		
 	
-	<osgi:service ref="sessionFactory" interface="org.hibernate.SessionFactory" />
+	<osgi:reference 
+		id="sessionFactory" 
+		interface="org.hibernate.SessionFactory" 
+		timeout="3000"/>
+		
+	<osgi:service 
+		id="entityService"
+		interface="iconcerto.service.api.EntityService"
+		ref="entityServiceBean"
+		/>
 	
 </beans>
