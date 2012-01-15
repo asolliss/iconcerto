@@ -8,6 +8,9 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * <b>Thread-safe
  * 
@@ -17,6 +20,8 @@ import java.util.concurrent.CopyOnWriteArraySet;
  *
  */
 public class ExtenderClassLoader extends ClassLoader {
+	
+	private final static Logger logger = LoggerFactory.getLogger(ExtenderClassLoader.class);
 
 	private volatile ClassLoader defaultClassLoader = null;
 	private Set<ExtendedBundle> bundles = new CopyOnWriteArraySet<ExtendedBundle>();	
@@ -31,10 +36,14 @@ public class ExtenderClassLoader extends ClassLoader {
 	
 	public void addBundle(ExtendedBundle bundle) {
 		bundles.add(bundle);
+		logger.debug("Bundle {} have been added into ExtenderClassLoader",
+				bundle.getBundle().getSymbolicName());
 	}
 	
 	public void removeBundle(ExtendedBundle bundle) {
 		bundles.remove(bundle);
+		logger.debug("Bundle {} have been removed from ExtenderClassLoader",
+				bundle.getBundle().getSymbolicName());
 	}
 
 	/**
@@ -44,6 +53,9 @@ public class ExtenderClassLoader extends ClassLoader {
 	 */
 	@Override
 	public Class<?> loadClass(String name) throws ClassNotFoundException {
+		logger.debug("{} is being loaded by ExtenderClassLoader",
+				name);
+		
 		Class<?> c = null;
 		for (ExtendedBundle bundle: bundles) {
 			try {
@@ -61,7 +73,10 @@ public class ExtenderClassLoader extends ClassLoader {
 		}
 		
 		if (c == null) throw new ClassNotFoundException(name);
-			
+		
+		logger.debug("{} have been loaded by ExtenderClassLoader",
+				name);
+		
 		return c;
 	}
 

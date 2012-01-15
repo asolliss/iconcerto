@@ -4,6 +4,7 @@ import iconcerto.integration.tests.database.AbstractIConcertoDatabaseIntegration
 import iconcerto.service.api.EntityService;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.ServiceReference;
@@ -39,7 +40,28 @@ public class HibernateExtenderDatabaseTest extends
 			
 			assertNotNull(entityService);
 			
-			entityService.createParentEntity(1, "first");
+			Integer newId = 1;
+			String newName = "first";
+			
+			entityService.createParentEntity(newId, newName);
+			
+			ResultSet rs = conn.createStatement().executeQuery(
+					"SELECT id, name FROM parent_entities");
+			
+			if (rs.next()) {
+				Integer storedId = rs.getInt("id");
+				String storedName = rs.getString("name");
+				
+				assertEquals(newId, storedId);
+				assertEquals(newName, storedName);
+				
+				assertFalse(rs.next());
+				rs.close();
+			}
+			else {
+				assertTrue("No data", false);
+			}
+			conn.commit();
 		}
 		finally {
 			if (entityServiceReference != null) {
@@ -47,10 +69,6 @@ public class HibernateExtenderDatabaseTest extends
 			}
 			valiDaoBundle.uninstall();
 		}
-		
-	}
-	
-	public void testTTT() {
 		
 	}
 	

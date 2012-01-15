@@ -22,6 +22,34 @@
     		<version>${lib.org.hsqldb.version}</version>
     		<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>com.springsource.slf4j.api</artifactId>
+			<version>${lib.com.springsource.slf4j}</version>
+			<scope>compile</scope>		
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.log4j</groupId>
+			<artifactId>com.springsource.org.apache.log4j</artifactId>
+			<version>${lib.com.springsource.org.apache.log4j}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>com.springsource.slf4j.log4j</artifactId>
+			<version>${lib.com.springsource.slf4j}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>com.springsource.slf4j.org.apache.commons.logging</artifactId>
+			<version>${lib.com.springsource.slf4j}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

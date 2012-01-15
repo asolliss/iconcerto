@@ -10,6 +10,8 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleEvent;
 import org.osgi.framework.SynchronousBundleListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class contains the implementation of the extender pattern.
@@ -20,6 +22,8 @@ import org.osgi.framework.SynchronousBundleListener;
  *
  */
 public class Extender implements SynchronousBundleListener {
+	
+	private final static Logger logger = LoggerFactory.getLogger(Extender.class);
 	
 	private BundleContext bundleContext;
 	private Executor executor;
@@ -65,6 +69,8 @@ public class Extender implements SynchronousBundleListener {
 
 	@Override
 	public void bundleChanged(BundleEvent event) {
+		logger.debug("Bundle {} changed. {}",
+				event.getBundle().getSymbolicName(), event);
 		
 		Actions	action = null;
 		
@@ -113,9 +119,11 @@ public class Extender implements SynchronousBundleListener {
 				bundles.put(extendedBundle);
 			} catch (InterruptedException e) {
 				Thread.currentThread().interrupt();
-				break;
+				return;
 			}
 		}
+		
+		logger.debug("Extender have been initialized");
 	}
 	
 }

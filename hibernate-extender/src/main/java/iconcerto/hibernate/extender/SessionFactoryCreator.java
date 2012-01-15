@@ -9,6 +9,8 @@ import iconcerto.extender.ExtenderClassLoader;
 import java.util.concurrent.BlockingQueue;
 
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 
@@ -16,6 +18,8 @@ import org.hibernate.SessionFactory;
  *
  */
 public class SessionFactoryCreator implements BundleConsumer {
+	
+	private final static Logger logger = LoggerFactory.getLogger(SessionFactoryCreator.class);
 	
 	private volatile Extendable extendable;
 	private volatile ExtenderClassLoader extenderClassLoader;

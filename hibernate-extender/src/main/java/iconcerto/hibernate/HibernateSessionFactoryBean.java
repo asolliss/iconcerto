@@ -4,6 +4,7 @@ import iconcerto.extender.Extendable;
 import iconcerto.hibernate.extender.HibernateBundle;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.TimeUnit;
@@ -17,9 +18,13 @@ import javassist.util.proxy.ProxyFactory.ClassLoaderProvider;
 import javassist.util.proxy.ProxyObject;
 
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
 
 public class HibernateSessionFactoryBean extends AnnotationSessionFactoryBean {
+	
+	private final static Logger logger = LoggerFactory.getLogger(HibernateSessionFactoryBean.class);
 
 	private SessionFactory sessionFactoryProxy;
 	private Lock sessionFactoryAccessLock = 
@@ -61,6 +66,7 @@ public class HibernateSessionFactoryBean extends AnnotationSessionFactoryBean {
 	}
 	
 	protected void recreateSessionFactory() throws Exception {
+		logger.debug("Hibernate environment is being recreated");
 		sessionFactoryAccessLock.tryLock(3000, TimeUnit.MILLISECONDS);
 		
 		try {			
@@ -70,6 +76,7 @@ public class HibernateSessionFactoryBean extends AnnotationSessionFactoryBean {
 		finally {
 			sessionFactoryAccessLock.unlock();
 		}
+		logger.debug("Hibernate environment have been recreated");
 	}
 	
 	protected SessionFactory createSessionFactoryProxy() throws InstantiationException, IllegalAccessException, InterruptedException {
@@ -134,6 +141,8 @@ public class HibernateSessionFactoryBean extends AnnotationSessionFactoryBean {
 		}
 		
 		setAnnotatedClasses(annotatedClasses.toArray(new Class[annotatedClasses.size()]));
+		logger.debug("{} classes had been set after bundle adding", 
+				Arrays.toString(annotatedClasses.toArray()));
 		recreateSessionFactory();
 	}
 	
@@ -145,6 +154,8 @@ public class HibernateSessionFactoryBean extends AnnotationSessionFactoryBean {
 		}
 		
 		setAnnotatedClasses(annotatedClasses.toArray(new Class[annotatedClasses.size()]));
+		logger.debug("{} classes had been set after bundle removing", 
+				Arrays.toString(annotatedClasses.toArray()));
 		recreateSessionFactory();
 	}
 	
