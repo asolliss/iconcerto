@@ -19,16 +19,15 @@
 	</bean>
 
 	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate3.HibernateTransactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager"
 		scope="singleton">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
-	<bean id="sessionFactory"
+	<bean id="sessionFactory"		
 		class="iconcerto.hibernate.HibernateSessionFactoryBean"				
 		scope="singleton">
-		<property name="dataSource" ref="dataSource" />
-		<property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" />		
+		<property name="dataSource" ref="dataSource" />		
 		<property name="classLoader" ref="extenderClassLoader" />
 	</bean>
 	

@@ -6,14 +6,20 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.hsqldb.server.Server;
+import org.hsqldb.server.ServerConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class HsqldbAdapter implements DatabaseAdapter {
 	
-	private final static Logger logger = LoggerFactory.getLogger(HsqldbAdapter.class);
+	private final static Logger logger = LoggerFactory.getLogger(HsqldbAdapter.class);	
+	private final Set<Connection> connections = 
+			Collections.synchronizedSet(new HashSet<Connection>());
 	
 	private volatile Server server;
 
@@ -54,8 +60,10 @@ public class HsqldbAdapter implements DatabaseAdapter {
 
 			@Override
 			public void run() {
-				if (server != null) {
-					server.stop();
+				try {
+					HsqldbAdapter.this.stop();
+				} catch (Exception e) {
+					logger.error(e.getMessage(), e);
 				}
 			}
 			
@@ -64,13 +72,26 @@ public class HsqldbAdapter implements DatabaseAdapter {
 
 	@Override
 	public void stop() throws Exception {
-		
+		if (server != null) {
+			for (Connection connection: connections) {
+				if (!connection.isClosed()) {
+					connection.close();
+				}
+			}
+			
+			server.stop();
+			while (ServerConstants.SERVER_STATE_SHUTDOWN != server.getState()) {
+				Thread.sleep(300);
+			}
+		}
 	}
 
 	@Override
 	public Connection getConnection() throws Exception {
 		Class.forName("org.hsqldb.jdbc.JDBCDriver");
-		return DriverManager.getConnection("jdbc:hsqldb:hsqls://localhost/test", "SA", "");
+		Connection connection = DriverManager.getConnection("jdbc:hsqldb:hsqls://localhost/test", "SA", "");
+		connections.add(connection);
+		return connection;
 	}
 
 	@Override

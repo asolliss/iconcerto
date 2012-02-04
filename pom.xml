@@ -12,12 +12,11 @@
 	<properties>
 		<lib.springframework.version>3.1.0.RELEASE</lib.springframework.version>
 		<lib.springframework.osgi.version>1.2.1</lib.springframework.osgi.version>
-		<lib.hibernate.version>3.6.7.Final</lib.hibernate.version>
+		<lib.hibernate.version>4.0.1.Final</lib.hibernate.version>
 		<lib.c3p0.version>0.9.1</lib.c3p0.version>
-		<lib.antlr.version>2.7.6</lib.antlr.version>
-		<lib.javassist.version>3.12.0.GA</lib.javassist.version>
-		<lib.cglib-nodep.version>2.2.2</lib.cglib-nodep.version>
-		<lib.commons-collections.version>3.1</lib.commons-collections.version>
+		<lib.antlr.version>2.7.7</lib.antlr.version>
+		<lib.javassist.version>3.15.0-GA</lib.javassist.version>
+		<lib.commons-collections.version>3.2.1</lib.commons-collections.version>
 		<lib.dom4j.version>1.6.1</lib.dom4j.version>
 		<lib.mojarra-jsf.version>2.0.6</lib.mojarra-jsf.version>
 		<lib.prettyfaces-jsf2.version>3.2.1</lib.prettyfaces-jsf2.version>

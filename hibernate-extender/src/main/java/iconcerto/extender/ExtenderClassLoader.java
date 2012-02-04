@@ -56,13 +56,16 @@ public class ExtenderClassLoader extends ClassLoader {
 		logger.debug("{} is being loaded by ExtenderClassLoader",
 				name);
 		
-		Class<?> c = null;
-		for (ExtendedBundle bundle: bundles) {
-			try {
-				c = bundle.loadClass(name);
-				break;
+		Class<?> c = null;		
+		
+		if (c == null) {
+			for (ExtendedBundle bundle: bundles) {
+				try {
+					c = bundle.loadClass(name);
+					break;
+				}
+				catch (ClassNotFoundException e) {}
 			}
-			catch (ClassNotFoundException e) {}
 		}
 		
 		if (c == null && getDefaultClassLoader() != null) {

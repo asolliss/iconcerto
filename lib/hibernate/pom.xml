@@ -1,4 +1,3 @@
- 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -24,6 +23,104 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>${project.version}</version>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>jaxen</groupId>
+					<artifactId>jaxen</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-collections</groupId>
+					<artifactId>commons-collections</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>antlr</groupId>
+					<artifactId>antlr</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-testing</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>jcl-over-slf4j</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.jboss.spec.javax.transaction</groupId>
+					<artifactId>jboss-transaction-api_1.1_spec</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.validation</groupId>
+					<artifactId>validation-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>dom4j</groupId>
+					<artifactId>dom4j</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-validator</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.hibernate.javax.persistence</groupId>
+					<artifactId>hibernate-jpa-2.0-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.jboss.logging</groupId>
+					<artifactId>jboss-logging</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml</groupId>
+					<artifactId>classmate</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.javassist</groupId>
+					<artifactId>javassist</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.jboss</groupId>
+					<artifactId>jandex</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.hibernate.common</groupId>
+					<artifactId>hibernate-commons-annotations</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.h2database</groupId>
+					<artifactId>h2</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.common</groupId>
+			<artifactId>hibernate-commons-annotations</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.logging</groupId>
+			<artifactId>jboss-logging</artifactId>
+			<version>3.1.0.CR2</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	
@@ -44,12 +141,12 @@
 						org.hibernate.*;version=${project.version}
 						</Export-Package>
 						<Import-Package>							
-						antlr;version="2.7.6",
-						antlr.collections;version="2.7.6",
-						antlr.collections.impl;version="2.7.6",
-						javassist;version="3.12.0.GA",
-						javassist.bytecode;version="3.12.0.GA",
-						javassist.util.proxy;version="3.12.0.GA",
+						antlr;version="${lib.antlr.version}",
+						antlr.collections;version="${lib.antlr.version}",
+						antlr.collections.impl;version="${lib.antlr.version}",
+						javassist;version="${lib.javassist.version}",
+						javassist.bytecode;version="${lib.javassist.version}",
+						javassist.util.proxy;version="${lib.javassist.version}",
 						javax.naming,
 						javax.naming.event,
 						javax.naming.spi,
@@ -62,28 +159,28 @@
 						javax.validation;resolution:=optional,
 						javax.validation.constraints;resolution:=optional,
 						javax.validation.groups;resolution:=optional,
-						javax.validation.metadata;resolution:=optional,
-						net.sf.cglib.beans;resolution:=optional,
-						net.sf.cglib.core;resolution:=optional,
-						net.sf.cglib.proxy;resolution:=optional,
-						net.sf.cglib.reflect;resolution:=optional,
-						net.sf.cglib.transform;resolution:=optional,
-						net.sf.cglib.transform.impl;resolution:=optional,
-						org.apache.commons.collections;version="3.1",
-						org.apache.commons.collections.map;version="3.1",
+						javax.validation.metadata;resolution:=optional,						
+						org.apache.commons.collections;version="${lib.commons-collections.version}",
+						org.apache.commons.collections.map;version="${lib.commons-collections.version}",
 						org.apache.tools.ant;resolution:=optional,
 						org.apache.tools.ant.taskdefs;resolution:=optional,
 						org.apache.tools.ant.types;resolution:=optional,
-						org.dom4j;version="1.6.1",
-						org.dom4j.io;version="1.6.1",
-						org.objectweb.asm;version="2.2.3",
-						org.slf4j;version="[1.6,2)",
-						org.w3c.dom,
-						org.xml.sax						
+						org.dom4j;version="${lib.dom4j.version}",
+						org.dom4j.io;version="${lib.dom4j.version}",
+						org.slf4j;version="${lib.com.springsource.slf4j}",
+						org.slf4j.spi;version="${lib.com.springsource.slf4j}",
+						org.w3c.dom, 
+						org.xml.sax,
+						com.fasterxml.*;resolution:=optional,
+						javax.management,
+						javax.xml.*,
+						org.apache.log4j,
+						org.jboss.jandex;resolution:=optional,
+						org.jboss.logmanager;resolution:=optional
 						</Import-Package>
-						<!-- <Embed-Dependency>
+						<Embed-Dependency>
 						*;scope=provided;type=!pom;inline=true
-						</Embed-Dependency> -->
+						</Embed-Dependency>
 					</instructions>
 				</configuration>
 			</plugin>

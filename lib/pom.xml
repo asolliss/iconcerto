@@ -18,7 +18,6 @@
 	<modules>
 		<module>antlr</module>
 		<module>javassist</module>
-		<module>cglib-nodep</module>
 		<module>commons-collections</module>
 		<module>dom4j</module>
 		<module>hibernate</module>

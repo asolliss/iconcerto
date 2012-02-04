@@ -20,7 +20,7 @@
     		<groupId>org.hsqldb</groupId>
     		<artifactId>hsqldb</artifactId>
     		<version>${lib.org.hsqldb.version}</version>
-    		<scope>test</scope>
+    		<scope>compile</scope>
 		</dependency>
 		
 		<dependency>

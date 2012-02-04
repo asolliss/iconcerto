@@ -3,10 +3,13 @@ package iconcerto.integration.tests.database.impl;
 import iconcerto.integration.tests.database.api.DatabaseService;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DatabaseServiceImpl implements DatabaseService {
+	
+	private final static Logger logger = LoggerFactory.getLogger(DatabaseServiceImpl.class);
 
 	private final DatabaseAdapter[] databaseAdapters = new DatabaseAdapter[] {
 		new HsqldbAdapter()	
@@ -20,8 +23,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 			try {
 				databaseAdapter.stop();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error(e.getMessage(), e);
 			}
 		}
 		
@@ -38,8 +40,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 		try {
 			databaseAdapter.start();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}		
 	}
 
@@ -51,25 +52,16 @@ public class DatabaseServiceImpl implements DatabaseService {
 			databaseAdapter.stop();
 			databaseAdapter = null;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 
 	@Override
 	public Connection getConnection() {
-		 try {
-		      Class.forName("org.hsqldb.jdbc.JDBCDriver" );
-		  } catch (Exception e) {
-		      System.err.println("ERROR: failed to load HSQLDB JDBC driver.");
-		      e.printStackTrace();
-		  }
-		
 		try {
-			return DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/test", "SA", "");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return databaseAdapter.getConnection();
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 		};
 		return null;
 	}
